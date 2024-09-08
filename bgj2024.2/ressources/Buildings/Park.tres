@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://c20g1bxra4t5o"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_so1s5"]
+
+[resource]
+script = ExtResource("1_so1s5")
+name = "Park"
+type = 1
+water = 3
+electricity = 1
+money = 0
+sprite_atlas = Vector2i(2, 0)
+description = "-1 Electricity consumption to every surrounding residential building"
+tier_2_description = "-1 Water"
+tier_3_description = "-2 Electricity for every residential building"

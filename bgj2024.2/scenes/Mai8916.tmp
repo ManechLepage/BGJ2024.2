@@ -1,0 +1,86 @@
+[gd_scene load_steps=17 format=4 uid="uid://6e0uxxp00mon"]
+
+[ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
+[ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
+[ext_resource type="Script" path="res://scripts/Buildings/PlacementManager.gd" id="3_1jd6b"]
+[ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
+[ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
+[ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
+[ext_resource type="Script" path="res://scripts/Buildings/Buildings.gd" id="7_q8l3x"]
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="8_wheyb"]
+[ext_resource type="Resource" uid="uid://q2nv5s8wwo26" path="res://ressources/Buildings/LightningRod.tres" id="9_u2jdv"]
+[ext_resource type="Resource" uid="uid://c20g1bxra4t5o" path="res://ressources/Buildings/Park.tres" id="10_0s171"]
+[ext_resource type="Resource" uid="uid://cudxw0up313qo" path="res://ressources/Buildings/Penthouse.tres" id="11_aaa1n"]
+[ext_resource type="Resource" uid="uid://cytou44gunvs0" path="res://ressources/Buildings/RainCollector.tres" id="12_v7krl"]
+[ext_resource type="Resource" uid="uid://cvgp11byk7nyt" path="res://ressources/Buildings/SushiBar.tres" id="13_hhtr8"]
+[ext_resource type="Resource" uid="uid://4vf8jlgr41m1" path="res://ressources/Buildings/WaterFilter.tres" id="14_phigx"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects.gd" id="15_6crf4"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Penthouse.gd" id="16_7p8is"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TileLayerManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+script = ExtResource("1_3o0sb")
+
+[node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD//wMAAQAAAAAAAAD//wQAAQAAAAAAAAD//wUAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wQAAQAAAAAAAAD+/wUAAQAAAAAAAAD//wYAAQAAAAAAAAD//wcAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAUAAQAAAAAAAAABAAQAAQAAAAAAAAABAAMAAQAAAAAAAAABAAIAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wIAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQAAAAAAAAD9/wEAAQAAAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD///7/AQAAAAAAAAD///3/AQAAAAAAAAAAAP7/AQAAAAAAAAAAAP//AQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAACAAIAAQAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD///7/AgABAAAAAAD/////AgABAAAAAAD+////AgABAAAAAAD//wAAAgADAAAAAAAAAP7/AgACAAAAAAAAAP3/AgAAAAAAAAD///3/AgAAAAAAAAAAAPz/AgABAAAAAAD//wEAAgABAAAAAAD+/wEAAgAAAAAAAAACAAAAAgAEAAAAAAABAP//AgAEAAAAAAABAAAAAgAEAAAAAAABAAEAAgAGAAAAAAABAAIAAgAEAAAAAAD9/wAAAgAFAAAAAAD9////AgAFAAAAAAD9/wEAAgAFAAAAAAD+/wAAAgAFAAAAAAD+/wIAAgAFAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.411765, 0.541176, 1, 0.427451)
+y_sort_enabled = true
+tile_set = ExtResource("2_parxg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="PlacementManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1jd6b")
+test_building = ExtResource("4_hulm2")
+
+[node name="InputManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_mxmak")
+
+[node name="ScoreCalculator" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_ndn6y")
+
+[node name="Buildings" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_q8l3x")
+buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx")])
+
+[node name="BuildingEffects" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("15_6crf4")
+
+[node name="Penthouse" type="Node" parent="BuildingEffects"]
+script = ExtResource("16_7p8is")
+building_name = "Penthouse"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FinishTurnButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -182.0
+offset_top = 15.0
+offset_right = -11.0
+offset_bottom = 76.0
+grow_horizontal = 0
+text = "Finish Turn"
+
+[connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
+[connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
+[connection signal="pressed" from="CanvasLayer/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]

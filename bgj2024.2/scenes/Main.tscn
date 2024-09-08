@@ -1,21 +1,333 @@
-[gd_scene load_steps=3 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=28 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
+[ext_resource type="Script" path="res://scripts/Buildings/PlacementManager.gd" id="3_1jd6b"]
+[ext_resource type="Script" path="res://scripts/TurnManager.gd" id="3_06q08"]
+[ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
+[ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
+[ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
+[ext_resource type="Script" path="res://scripts/Buildings/Buildings.gd" id="7_q8l3x"]
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="8_wheyb"]
+[ext_resource type="Resource" uid="uid://q2nv5s8wwo26" path="res://ressources/Buildings/LightningRod.tres" id="9_u2jdv"]
+[ext_resource type="Resource" uid="uid://c20g1bxra4t5o" path="res://ressources/Buildings/Park.tres" id="10_0s171"]
+[ext_resource type="Resource" uid="uid://cudxw0up313qo" path="res://ressources/Buildings/Penthouse.tres" id="11_aaa1n"]
+[ext_resource type="Resource" uid="uid://cytou44gunvs0" path="res://ressources/Buildings/RainCollector.tres" id="12_v7krl"]
+[ext_resource type="Resource" uid="uid://cvgp11byk7nyt" path="res://ressources/Buildings/SushiBar.tres" id="13_hhtr8"]
+[ext_resource type="Resource" uid="uid://4vf8jlgr41m1" path="res://ressources/Buildings/WaterFacility.tres" id="14_phigx"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects.gd" id="15_6crf4"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Penthouse.gd" id="16_7p8is"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/SushiBar.gd" id="17_eo8vu"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Park.gd" id="18_l1doc"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/WaterFacility.gd" id="19_an28r"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Residence.gd" id="20_a5paj"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/RainWaterCollector.gd" id="22_xmv6v"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/LightningRod.gd" id="23_1trlr"]
+[ext_resource type="Theme" uid="uid://cir7ir3hautb4" path="res://graphics/main_theme.tres" id="24_l2aoc"]
+[ext_resource type="PackedScene" uid="uid://clkiyu8v7ccpv" path="res://scenes/UI/building_card.tscn" id="25_dqmru"]
+[ext_resource type="Texture2D" uid="uid://b520pui538igv" path="res://graphics/UI/panel2.png" id="25_ei1mg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
+texture = ExtResource("25_ei1mg")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="Main" type="Node2D"]
 
-[node name="TileLayerManager" type="Node2D" parent="."]
+[node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
 unique_name_in_owner = true
 texture_filter = 1
 script = ExtResource("1_3o0sb")
 
 [node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD/////AQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wAAAQAAAAAAAAABAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAYAAQAAAAAAAAD//wUAAQAAAAAAAAD//wQAAQAAAAAAAAD//wMAAQAAAAAAAAD//wIAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wIAAQAAAAAAAAABAAMAAQAAAAAAAAABAAQAAQAAAAAAAAD//wcAAQAAAAAAAAD//wYAAQAAAAAAAAD+/wUAAQAAAAAAAAD+/wQAAQAAAAAAAAD9/wMAAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD//wMAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD+/wEAAQAAAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_set = ExtResource("2_parxg")
+
+[node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.411765, 0.541176, 1, 0.427451)
+y_sort_enabled = true
+tile_set = ExtResource("2_parxg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="TurnManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_06q08")
+
+[node name="PlacementManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1jd6b")
+test_building = ExtResource("4_hulm2")
+
+[node name="InputManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_mxmak")
+
+[node name="ScoreCalculator" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_ndn6y")
+
+[node name="Buildings" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_q8l3x")
+buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx")])
+
+[node name="BuildingEffects" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("15_6crf4")
+
+[node name="Penthouse" type="Node" parent="BuildingEffects"]
+script = ExtResource("16_7p8is")
+building_name = "Penthouse"
+
+[node name="SushiBar" type="Node" parent="BuildingEffects"]
+script = ExtResource("17_eo8vu")
+building_name = "Sushi Bar"
+
+[node name="Park" type="Node" parent="BuildingEffects"]
+script = ExtResource("18_l1doc")
+building_name = "Park"
+
+[node name="WaterFacility" type="Node" parent="BuildingEffects"]
+script = ExtResource("19_an28r")
+building_name = "Water Facility"
+
+[node name="Residence" type="Node" parent="BuildingEffects"]
+script = ExtResource("20_a5paj")
+
+[node name="RainCollector" type="Node" parent="BuildingEffects"]
+script = ExtResource("22_xmv6v")
+building_name = "Rain Collector"
+
+[node name="LightningRod" type="Node" parent="BuildingEffects"]
+script = ExtResource("23_1trlr")
+building_name = "Lightning Rod"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FinishTurnButton" type="Button" parent="CanvasLayer"]
+unique_name_in_owner = true
+texture_filter = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -209.0
+offset_top = 15.0
+offset_right = -17.0
+offset_bottom = 79.0
+grow_horizontal = 0
+theme = ExtResource("24_l2aoc")
+theme_override_font_sizes/font_size = 25
+text = "Start Turn"
+
+[node name="InfoLabel" type="Panel" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -148.0
+offset_right = -17.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="TurnLabel" type="Label" parent="CanvasLayer/InfoLabel"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -121.0
+offset_top = 7.0
+offset_right = 9.0
+offset_bottom = 22.0
+grow_horizontal = 0
+text = "Turn: "
+
+[node name="NextStormLabel" type="Label" parent="CanvasLayer/InfoLabel"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -121.0
+offset_top = 26.0
+offset_right = 29.0
+offset_bottom = 41.0
+grow_horizontal = 0
+text = "Next Storm: "
+
+[node name="Resources" type="Panel" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -177.0
+offset_top = -236.0
+offset_right = -17.0
+offset_bottom = -156.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="Money" type="Label" parent="CanvasLayer/Resources"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -2.0
+offset_bottom = 29.0
+grow_horizontal = 2
+text = "Money: 0"
+vertical_alignment = 1
+
+[node name="Electricity" type="Label" parent="CanvasLayer/Resources"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 27.0
+offset_right = -2.0
+offset_bottom = 50.0
+grow_horizontal = 2
+text = "Electricity: 0"
+vertical_alignment = 1
+
+[node name="Water" type="Label" parent="CanvasLayer/Resources"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 48.0
+offset_right = -2.0
+offset_bottom = 71.0
+grow_horizontal = 2
+text = "Water: 0"
+vertical_alignment = 1
+
+[node name="Choice" type="Panel" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -303.0
+offset_top = -169.0
+offset_right = 303.0
+offset_bottom = 169.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+theme_override_styles/panel = SubResource("StyleBoxTexture_py6rk")
+
+[node name="Title" type="Label" parent="CanvasLayer/Choice"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -3.0
+offset_bottom = 20.0
+grow_horizontal = 2
+text = "Choose a building"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Building1" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -249.5
+offset_top = -55.0
+offset_right = -132.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy"
+
+[node name="Building2" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.5
+offset_top = -55.0
+offset_right = 61.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy"
+
+[node name="Building3" type="Button" parent="CanvasLayer/Choice"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 135.5
+offset_top = -55.0
+offset_right = 258.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Buy"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Choice"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -292.0
+offset_top = 23.0
+offset_right = 292.0
+offset_bottom = 279.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="BuildingCard1" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+layout_mode = 2
+
+[node name="BuildingCard2" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+layout_mode = 2
+
+[node name="BuildingCard3" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+layout_mode = 2
+
+[connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
+[connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
+[connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
+[connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
+[connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
+[connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]
+[connection signal="pressed" from="CanvasLayer/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Building1" to="TurnManager" method="_on_building_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Building2" to="TurnManager" method="_on_building_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]

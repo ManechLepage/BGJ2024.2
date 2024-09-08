@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://4vf8jlgr41m1"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_cpruh"]
+
+[resource]
+script = ExtResource("1_cpruh")
+name = "Water Facility"
+type = 0
+rarity = 1
+water = 0
+electricity = 2
+money = 0
+sprite_atlas = Vector2i(6, 0)
+description = "Reduces total water consumption by 10%"
+tier_2_description = "-1 Electricity"
+tier_3_description = "Reduces consumption by 15%"

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=4 uid="uid://6e0uxxp00mon"]
+
+[ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
+[ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
+[ext_resource type="Script" path="res://scripts/Buildings/PlacementManager.gd" id="3_1jd6b"]
+[ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/BasicHome.tres" id="4_hulm2"]
+[ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TileLayerManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+script = ExtResource("1_3o0sb")
+
+[node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD/////AQAAAAAAAAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wAAAQAAAAAAAAABAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAD//wUAAQAAAAAAAAD//wQAAQAAAAAAAAD//wMAAQAAAAAAAAD//wIAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wEAAQAAAAAAAAD+/wIAAQAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_set = ExtResource("2_parxg")
+
+[node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.411765, 0.541176, 1, 0.427451)
+y_sort_enabled = true
+tile_set = ExtResource("2_parxg")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[node name="PlacementManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_1jd6b")
+test_building = ExtResource("4_hulm2")
+
+[node name="InputManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_mxmak")
+
+[connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]

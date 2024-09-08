@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://cudxw0up313qo"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_gxxpg"]
+
+[resource]
+script = ExtResource("1_gxxpg")
+name = "Penthouse"
+type = 0
+rarity = 1
+water = 2
+electricity = 2
+money = 3
+sprite_atlas = Vector2i(0, 0)
+description = "Gives +1 revenue per surrounding penthouse"
+tier_2_description = "+1 Revenue, +1 Electricity"
+tier_3_description = "+2 Per penthouse"

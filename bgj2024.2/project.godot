@@ -36,6 +36,19 @@ folder_colors={
 "res://scripts/": "purple"
 }
 
+[global_group]
+
+TileMap=""
+
+[input]
+
+LeftClick={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(99, 15),"global_position":Vector2(108, 52),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+
 [rendering]
 
 renderer/rendering_method="mobile"
+environment/defaults/default_clear_color=Color(0.0984461, 0.0893013, 0.158598, 1)

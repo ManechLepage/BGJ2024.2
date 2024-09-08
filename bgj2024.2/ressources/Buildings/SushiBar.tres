@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://cvgp11byk7nyt"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_21snj"]
+
+[resource]
+script = ExtResource("1_21snj")
+name = "Sushi Bar"
+type = 1
+rarity = 1
+water = 1
+electricity = 3
+money = 0
+sprite_atlas = Vector2i(3, 0)
+description = "+1 Revenue for each surrounding residential building"
+tier_2_description = "-1 Water"
+tier_3_description = "+2 Revenue per residential building"

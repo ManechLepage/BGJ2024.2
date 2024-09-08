@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://cytou44gunvs0"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_im8kx"]
+
+[resource]
+script = ExtResource("1_im8kx")
+name = "Rain Collector"
+type = 2
+rarity = 0
+water = 0
+electricity = 1
+money = 0
+sprite_atlas = Vector2i(4, 0)
+description = "Collects 50 water every storm"
+tier_2_description = "Collects 80 water"
+tier_3_description = "Collects 110 water"
