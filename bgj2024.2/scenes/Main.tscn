@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=4 uid="uid://6e0uxxp00mon"]
+
+[ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
+[ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
+
+[node name="Main" type="Node2D"]
+
+[node name="TileLayerManager" type="Node2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+script = ExtResource("1_3o0sb")
+
+[node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD/////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAD//wEAAAAAAAAAAAD//wAAAAAAAAAAAAABAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAYAAAAAAAAAAAD//wUAAAAAAAAAAAD//wQAAAAAAAAAAAD//wMAAAAAAAAAAAD//wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAD//wcAAAAAAAAAAAD//wYAAAAAAAAAAAD+/wUAAAAAAAAAAAD+/wQAAAAAAAAAAAD9/wMAAAAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
