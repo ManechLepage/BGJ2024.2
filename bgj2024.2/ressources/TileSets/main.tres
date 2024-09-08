@@ -1,9 +1,9 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://jjx6il2syft5"]
 
-[ext_resource type="Texture2D" uid="uid://bysxy5bk5ahwn" path="res://graphics/Tiles/Floor.aseprite" id="1_xbow1"]
+[ext_resource type="Texture2D" uid="uid://co1421x623wlx" path="res://graphics/Tiles/Floor.png" id="1_w7coy"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7n46y"]
-texture = ExtResource("1_xbow1")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrsls"]
+texture = ExtResource("1_w7coy")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -8)
@@ -12,4 +12,4 @@ texture_region_size = Vector2i(32, 32)
 [resource]
 tile_shape = 1
 tile_size = Vector2i(32, 16)
-sources/0 = SubResource("TileSetAtlasSource_7n46y")
+sources/1 = SubResource("TileSetAtlasSource_wrsls")
