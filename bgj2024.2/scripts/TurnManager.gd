@@ -17,8 +17,8 @@ extends Node
 var turn: int = 0
 
 var money: int = 0
-var electricity: int = 30
-var water: int = 30
+var electricity: int = 100
+var water: int = 100
 
 var choices: Array[Building]
 
@@ -30,7 +30,7 @@ func update_turn():
 	next_storm_label.text = "Next Storm: " + str((floor(turn / 10) * 10) + 10)
 	
 	money_label.text = "Money: " + str(money)
-	electricity_label.text = "Electricity" + str(electricity)
+	electricity_label.text = "Electricity: " + str(electricity)
 	water_label.text = "Water: " + str(water)
 
 func _on_finished_calculating(total) -> void:

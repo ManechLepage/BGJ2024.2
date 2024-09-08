@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=30 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
 [ext_resource type="Script" path="res://scripts/Buildings/PlacementManager.gd" id="3_1jd6b"]
 [ext_resource type="Script" path="res://scripts/TurnManager.gd" id="3_06q08"]
+[ext_resource type="Script" path="res://scripts/CameraManagert.gd" id="3_fqxni"]
 [ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
 [ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
@@ -36,6 +37,13 @@ texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[sub_resource type="Environment" id="Environment_tegag"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 2.08
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+
 [node name="Main" type="Node2D"]
 
 [node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
@@ -44,11 +52,13 @@ texture_filter = 1
 script = ExtResource("1_3o0sb")
 
 [node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD//wMAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAQAAAAAAAAD/////AQAAAAAAAAD//wAAAQAAAAAAAAD+/wEAAQAAAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
@@ -58,7 +68,8 @@ y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(3, 3)
+zoom = Vector2(5, 5)
+script = ExtResource("3_fqxni")
 
 [node name="TurnManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -320,6 +331,9 @@ layout_mode = 2
 
 [node name="BuildingCard3" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
 layout_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_tegag")
 
 [connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]

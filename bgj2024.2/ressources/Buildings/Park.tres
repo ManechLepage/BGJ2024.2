@@ -6,6 +6,7 @@
 script = ExtResource("1_so1s5")
 name = "Park"
 type = 1
+rarity = 0
 water = 3
 electricity = 1
 money = 0

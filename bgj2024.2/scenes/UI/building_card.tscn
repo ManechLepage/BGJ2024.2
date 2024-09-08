@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://clkiyu8v7ccpv"]
+[gd_scene load_steps=9 format=3 uid="uid://clkiyu8v7ccpv"]
 
 [ext_resource type="Theme" uid="uid://cir7ir3hautb4" path="res://graphics/main_theme.tres" id="1_jrj41"]
 [ext_resource type="Script" path="res://scripts/UI/BuildingCard.gd" id="2_ppjgu"]
 [ext_resource type="Texture2D" uid="uid://cavif5jj0876s" path="res://graphics/UI/panel3.png" id="3_6fhed"]
 [ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="4_8omtr"]
+[ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="4_32frl"]
 [ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="5_ukbj5"]
 [ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="6_ap50y"]
 
@@ -68,6 +69,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_gch5d")
 
 [node name="Description" type="RichTextLabel" parent="Panel/Panel"]
 unique_name_in_owner = true
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,9 +77,11 @@ anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 9.0
 offset_right = -9.0
-offset_bottom = 6.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("4_32frl")
+theme_override_font_sizes/normal_font_size = 15
 bbcode_enabled = true
 text = "Description"
 fit_content = true
