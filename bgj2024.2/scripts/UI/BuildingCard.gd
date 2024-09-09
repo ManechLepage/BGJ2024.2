@@ -21,9 +21,9 @@ func load_building(_building: Building):
 	
 	name_label.text = building.name + " " + str(building.current_tier)
 	description.text = enrich(building.description)
-	revenue.text = str(building.money)
-	electricity.text = str(building.electricity)
-	water.text = str(building.water)
+	revenue.text = ": " + str(building.money)
+	electricity.text = ": " + str(building.electricity)
+	water.text = ": " + str(building.water)
 	
 	sprite.texture = get_tree().get_first_node_in_group("TileMap").get_texture(building.sprite_atlas)
 

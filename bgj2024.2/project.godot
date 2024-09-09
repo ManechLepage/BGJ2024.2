@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="BGJ2024.2"
+config/tags=PackedStringArray("2d", "game", "pixel_art", "roguelike")
 run/main_scene="res://scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 
@@ -33,7 +34,8 @@ folder_colors={
 "res://graphics/": "yellow",
 "res://ressources/": "orange",
 "res://scenes/": "teal",
-"res://scripts/": "purple"
+"res://scripts/": "purple",
+"res://sounds/": "pink"
 }
 
 [global_group]

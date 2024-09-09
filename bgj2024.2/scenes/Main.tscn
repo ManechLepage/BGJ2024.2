@@ -1,11 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=33 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
 [ext_resource type="Script" path="res://scripts/Buildings/PlacementManager.gd" id="3_1jd6b"]
 [ext_resource type="Script" path="res://scripts/TurnManager.gd" id="3_06q08"]
 [ext_resource type="Script" path="res://scripts/CameraManagert.gd" id="3_fqxni"]
+[ext_resource type="Script" path="res://scripts/SoundManager.gd" id="4_4mq0e"]
 [ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
+[ext_resource type="Script" path="res://scripts/RentManager.gd" id="5_b874n"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
 [ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
 [ext_resource type="Script" path="res://scripts/Buildings/Buildings.gd" id="7_q8l3x"]
@@ -27,6 +29,7 @@
 [ext_resource type="Theme" uid="uid://cir7ir3hautb4" path="res://graphics/main_theme.tres" id="24_l2aoc"]
 [ext_resource type="PackedScene" uid="uid://clkiyu8v7ccpv" path="res://scenes/UI/building_card.tscn" id="25_dqmru"]
 [ext_resource type="Texture2D" uid="uid://b520pui538igv" path="res://graphics/UI/panel2.png" id="25_ei1mg"]
+[ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="28_fdcus"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
 texture = ExtResource("25_ei1mg")
@@ -70,6 +73,12 @@ tile_set = ExtResource("2_parxg")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(5, 5)
 script = ExtResource("3_fqxni")
+
+[node name="SoundManager" type="Node" parent="."]
+script = ExtResource("4_4mq0e")
+
+[node name="RentManager" type="Node" parent="."]
+script = ExtResource("5_b874n")
 
 [node name="TurnManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -142,12 +151,13 @@ theme_override_font_sizes/font_size = 25
 text = "Start Turn"
 
 [node name="InfoLabel" type="Panel" parent="CanvasLayer"]
+texture_filter = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -145.0
+offset_left = -180.0
 offset_top = -148.0
 offset_right = -17.0
 offset_bottom = -100.0
@@ -162,11 +172,12 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -121.0
-offset_top = 7.0
-offset_right = 9.0
-offset_bottom = 22.0
+offset_left = -156.0
+offset_top = 6.0
+offset_right = -26.0
+offset_bottom = 24.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
 text = "Turn: "
 
 [node name="NextStormLabel" type="Label" parent="CanvasLayer/InfoLabel"]
@@ -176,11 +187,12 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -121.0
-offset_top = 26.0
-offset_right = 29.0
-offset_bottom = 41.0
+offset_left = -156.0
+offset_top = 25.0
+offset_right = -6.0
+offset_bottom = 43.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
 text = "Next Storm: "
 
 [node name="Resources" type="Panel" parent="CanvasLayer"]
@@ -190,7 +202,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -177.0
+offset_left = -208.0
 offset_top = -236.0
 offset_right = -17.0
 offset_bottom = -156.0
@@ -208,6 +220,7 @@ offset_top = 6.0
 offset_right = -2.0
 offset_bottom = 29.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
 text = "Money: 0"
 vertical_alignment = 1
 
@@ -221,6 +234,7 @@ offset_top = 27.0
 offset_right = -2.0
 offset_bottom = 50.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
 text = "Electricity: 0"
 vertical_alignment = 1
 
@@ -234,8 +248,46 @@ offset_top = 48.0
 offset_right = -2.0
 offset_bottom = 71.0
 grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
 text = "Water: 0"
 vertical_alignment = 1
+
+[node name="Rent" type="Panel" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -92.0
+offset_right = -17.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="Label" type="Label" parent="CanvasLayer/Rent"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 82.0
+offset_bottom = -7.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Rent: "
+vertical_alignment = 1
+
+[node name="CoinIcon" type="TextureRect" parent="CanvasLayer/Rent"]
+layout_mode = 0
+offset_left = 95.0
+offset_top = 7.0
+offset_right = 135.0
+offset_bottom = 47.0
+texture = ExtResource("28_fdcus")
 
 [node name="Choice" type="Panel" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -337,6 +389,7 @@ environment = SubResource("Environment_tegag")
 
 [connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
+[connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
 [connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
