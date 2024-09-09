@@ -26,6 +26,7 @@ func _on_finish_turn_pressed() -> void:
 		else:
 			finish_turn_button.text = "Start Storm"
 			is_storm = true
+		finish_turn_button.disabled = true
 	else:
 		if not is_storm:
 			start_turn.emit()
@@ -35,3 +36,9 @@ func _on_finish_turn_pressed() -> void:
 			start_storm.emit()
 			finish_turn_button.text = "Start Turn"
 			is_storm = false
+
+func _on_score_calculator_finished_calculating(total: Array) -> void:
+	finish_turn_button.disabled = false
+
+func _on_score_calculator_finished_calculating_storm(total: Array) -> void:
+	finish_turn_button.disabled = false

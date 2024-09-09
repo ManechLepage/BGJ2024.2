@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=37 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/CameraManagert.gd" id="3_fqxni"]
 [ext_resource type="Script" path="res://scripts/SoundManager.gd" id="4_4mq0e"]
 [ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
+[ext_resource type="Script" path="res://scripts/UI/MenuManager.gd" id="5_5m33o"]
 [ext_resource type="Script" path="res://scripts/RentManager.gd" id="5_b874n"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
 [ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
@@ -15,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://q2nv5s8wwo26" path="res://ressources/Buildings/LightningRod.tres" id="9_u2jdv"]
 [ext_resource type="Resource" uid="uid://c20g1bxra4t5o" path="res://ressources/Buildings/Park.tres" id="10_0s171"]
 [ext_resource type="Resource" uid="uid://cudxw0up313qo" path="res://ressources/Buildings/Penthouse.tres" id="11_aaa1n"]
+[ext_resource type="PackedScene" uid="uid://d4nqmenkyvhtj" path="res://scenes/UI/animation_texture.tscn" id="11_plii6"]
 [ext_resource type="Resource" uid="uid://cytou44gunvs0" path="res://ressources/Buildings/RainCollector.tres" id="12_v7krl"]
 [ext_resource type="Resource" uid="uid://cvgp11byk7nyt" path="res://ressources/Buildings/SushiBar.tres" id="13_hhtr8"]
 [ext_resource type="Resource" uid="uid://4vf8jlgr41m1" path="res://ressources/Buildings/WaterFacility.tres" id="14_phigx"]
@@ -30,6 +32,8 @@
 [ext_resource type="PackedScene" uid="uid://clkiyu8v7ccpv" path="res://scenes/UI/building_card.tscn" id="25_dqmru"]
 [ext_resource type="Texture2D" uid="uid://b520pui538igv" path="res://graphics/UI/panel2.png" id="25_ei1mg"]
 [ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="28_fdcus"]
+[ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="31_bowib"]
+[ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="32_ex7d4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
 texture = ExtResource("25_ei1mg")
@@ -48,6 +52,14 @@ glow_blend_mode = 1
 glow_hdr_threshold = 0.0
 
 [node name="Main" type="Node2D"]
+
+[node name="AnimationTarget" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(95, -3)
+
+[node name="AnimationTarget2" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(95, 2)
 
 [node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
 unique_name_in_owner = true
@@ -70,14 +82,24 @@ modulate = Color(0.411765, 0.541176, 1, 0.427451)
 y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
+[node name="AnimationSprites" type="Node2D" parent="."]
+unique_name_in_owner = true
+
 [node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
 zoom = Vector2(5, 5)
 script = ExtResource("3_fqxni")
 
 [node name="SoundManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_4mq0e")
 
+[node name="MenuManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_5m33o")
+
 [node name="RentManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("5_b874n")
 
 [node name="TurnManager" type="Node" parent="."]
@@ -96,6 +118,10 @@ script = ExtResource("5_mxmak")
 [node name="ScoreCalculator" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_ndn6y")
+animation_texture = ExtResource("11_plii6")
+coin_texture = ExtResource("28_fdcus")
+electricity_texture = ExtResource("31_bowib")
+water_texture = ExtResource("32_ex7d4")
 
 [node name="Buildings" type="Node" parent="."]
 unique_name_in_owner = true
@@ -135,37 +161,184 @@ building_name = "Lightning Rod"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FinishTurnButton" type="Button" parent="CanvasLayer"]
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 texture_filter = 1
-anchors_preset = 1
-anchor_left = 1.0
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = -209.0
-offset_top = 15.0
-offset_right = -17.0
-offset_bottom = 79.0
-grow_horizontal = 0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -91.0
+offset_right = 132.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -6.0
+offset_right = 132.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 79.0
+offset_right = 132.0
+offset_bottom = 157.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="DifficultyMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="DifficultyButton" type="Button" parent="CanvasLayer/DifficultyMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.5
+offset_top = 26.0
+offset_right = 123.5
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Select"
+
+[node name="RestartMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/RestartMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -36.5
+offset_right = 174.0
+offset_bottom = 36.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Main Menu"
+
+[node name="SettingsMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="SettingsBackButton" type="Button" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = -81.0
+offset_right = 177.0
+offset_bottom = -13.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "Back"
+
+[node name="MainUI" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = -10.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="FinishTurnButton" type="Button" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 1
+offset_right = 192.0
+offset_bottom = 64.0
 theme = ExtResource("24_l2aoc")
 theme_override_font_sizes/font_size = 25
 text = "Start Turn"
 
-[node name="InfoLabel" type="Panel" parent="CanvasLayer"]
+[node name="InfoLabel" type="Panel" parent="CanvasLayer/MainUI"]
 texture_filter = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -180.0
-offset_top = -148.0
-offset_right = -17.0
-offset_bottom = -100.0
-grow_horizontal = 0
-grow_vertical = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -48.0
+offset_right = 163.0
+grow_vertical = 0
 theme = ExtResource("24_l2aoc")
 
-[node name="TurnLabel" type="Label" parent="CanvasLayer/InfoLabel"]
+[node name="TurnLabel" type="Label" parent="CanvasLayer/MainUI/InfoLabel"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -180,7 +353,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
 text = "Turn: "
 
-[node name="NextStormLabel" type="Label" parent="CanvasLayer/InfoLabel"]
+[node name="NextStormLabel" type="Label" parent="CanvasLayer/MainUI/InfoLabel"]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 1
@@ -195,22 +368,18 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
 text = "Next Storm: "
 
-[node name="Resources" type="Panel" parent="CanvasLayer"]
+[node name="Resources" type="Panel" parent="CanvasLayer/MainUI"]
 texture_filter = 1
-anchors_preset = 6
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
-anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -208.0
-offset_top = -236.0
-offset_right = -17.0
-offset_bottom = -156.0
+offset_left = -191.0
+offset_bottom = 80.0
 grow_horizontal = 0
-grow_vertical = 2
 theme = ExtResource("24_l2aoc")
 
-[node name="Money" type="Label" parent="CanvasLayer/Resources"]
+[node name="Money" type="Label" parent="CanvasLayer/MainUI/Resources"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
@@ -224,7 +393,7 @@ theme_override_font_sizes/font_size = 20
 text = "Money: 0"
 vertical_alignment = 1
 
-[node name="Electricity" type="Label" parent="CanvasLayer/Resources"]
+[node name="Electricity" type="Label" parent="CanvasLayer/MainUI/Resources"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
@@ -238,7 +407,7 @@ theme_override_font_sizes/font_size = 20
 text = "Electricity: 0"
 vertical_alignment = 1
 
-[node name="Water" type="Label" parent="CanvasLayer/Resources"]
+[node name="Water" type="Label" parent="CanvasLayer/MainUI/Resources"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 10
@@ -252,22 +421,19 @@ theme_override_font_sizes/font_size = 20
 text = "Water: 0"
 vertical_alignment = 1
 
-[node name="Rent" type="Panel" parent="CanvasLayer"]
+[node name="Rent" type="Panel" parent="CanvasLayer/MainUI"]
 texture_filter = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -157.0
-offset_top = -92.0
-offset_right = -17.0
-offset_bottom = -39.0
-grow_horizontal = 0
-grow_vertical = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -106.0
+offset_right = 140.0
+offset_bottom = -53.0
+grow_vertical = 0
 theme = ExtResource("24_l2aoc")
 
-[node name="Label" type="Label" parent="CanvasLayer/Rent"]
+[node name="Label" type="Label" parent="CanvasLayer/MainUI/Rent"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 9
@@ -281,7 +447,7 @@ theme_override_font_sizes/font_size = 20
 text = "Rent: "
 vertical_alignment = 1
 
-[node name="CoinIcon" type="TextureRect" parent="CanvasLayer/Rent"]
+[node name="CoinIcon" type="TextureRect" parent="CanvasLayer/MainUI/Rent"]
 layout_mode = 0
 offset_left = 95.0
 offset_top = 7.0
@@ -289,10 +455,11 @@ offset_right = 135.0
 offset_bottom = 47.0
 texture = ExtResource("28_fdcus")
 
-[node name="Choice" type="Panel" parent="CanvasLayer"]
+[node name="Choice" type="Panel" parent="CanvasLayer/MainUI"]
 unique_name_in_owner = true
 visible = false
 texture_filter = 1
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -307,7 +474,7 @@ grow_vertical = 2
 theme = ExtResource("24_l2aoc")
 theme_override_styles/panel = SubResource("StyleBoxTexture_py6rk")
 
-[node name="Title" type="Label" parent="CanvasLayer/Choice"]
+[node name="Title" type="Label" parent="CanvasLayer/MainUI/Choice"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -318,7 +485,7 @@ text = "Choose a building"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Building1" type="Button" parent="CanvasLayer/Choice"]
+[node name="Building1" type="Button" parent="CanvasLayer/MainUI/Choice"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -333,7 +500,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Buy"
 
-[node name="Building2" type="Button" parent="CanvasLayer/Choice"]
+[node name="Building2" type="Button" parent="CanvasLayer/MainUI/Choice"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -348,7 +515,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Buy"
 
-[node name="Building3" type="Button" parent="CanvasLayer/Choice"]
+[node name="Building3" type="Button" parent="CanvasLayer/MainUI/Choice"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -363,7 +530,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Buy"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Choice"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainUI/Choice"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -375,14 +542,164 @@ offset_bottom = 279.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="BuildingCard1" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+[node name="BuildingCard1" parent="CanvasLayer/MainUI/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
 layout_mode = 2
 
-[node name="BuildingCard2" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+[node name="BuildingCard2" parent="CanvasLayer/MainUI/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
 layout_mode = 2
 
-[node name="BuildingCard3" parent="CanvasLayer/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
+[node name="BuildingCard3" parent="CanvasLayer/MainUI/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
 layout_mode = 2
+
+[node name="ConsumptionTurnTotal" type="Panel" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 2.5
+offset_right = 109.0
+offset_bottom = 55.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("24_l2aoc")
+
+[node name="LightningTexture" type="TextureRect" parent="CanvasLayer/MainUI/ConsumptionTurnTotal"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -20.0
+offset_right = 45.0
+offset_bottom = 20.0
+grow_vertical = 2
+texture = ExtResource("31_bowib")
+
+[node name="LightningCount" type="Label" parent="CanvasLayer/MainUI/ConsumptionTurnTotal"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 47.0
+offset_right = 105.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.907395, 0.170881, 5.77569e-07, 1)
+theme_override_font_sizes/font_size = 40
+text = "155"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WaterTexture" type="TextureRect" parent="CanvasLayer/MainUI/ConsumptionTurnTotal"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = -20.0
+offset_right = -63.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("32_ex7d4")
+
+[node name="WaterCount" type="Label" parent="CanvasLayer/MainUI/ConsumptionTurnTotal"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.907395, 0.170881, 5.77569e-07, 1)
+theme_override_font_sizes/font_size = 40
+text = "155"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RevenueTurnTotal" type="Panel" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -58.0
+offset_top = -28.5
+offset_right = 57.0
+offset_bottom = 24.5
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("24_l2aoc")
+
+[node name="CoinIcon" type="TextureRect" parent="CanvasLayer/MainUI/RevenueTurnTotal"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 47.0
+offset_bottom = 47.0
+texture = ExtResource("28_fdcus")
+
+[node name="RevenueCount" type="Label" parent="CanvasLayer/MainUI/RevenueTurnTotal"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -63.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "155"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameSettingsButton" type="Button" parent="CanvasLayer/MainUI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.0
+offset_right = 132.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+
+[node name="SeeBoardButton" type="Button" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -67.5
+offset_top = -50.0
+offset_right = 67.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "See Board"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
@@ -393,8 +710,18 @@ environment = SubResource("Environment_tegag")
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
 [connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
+[connection signal="finished_calculating" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]
-[connection signal="pressed" from="CanvasLayer/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]
-[connection signal="pressed" from="CanvasLayer/Choice/Building1" to="TurnManager" method="_on_building_1_pressed"]
-[connection signal="pressed" from="CanvasLayer/Choice/Building2" to="TurnManager" method="_on_building_2_pressed"]
-[connection signal="pressed" from="CanvasLayer/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]
+[connection signal="finished_calculating_storm" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating_storm"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="MenuManager" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="MenuManager" method="_on_difficulty_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="MenuManager" method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="MenuManager" method="_on_settings_back_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building1" to="TurnManager" method="_on_building_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building2" to="TurnManager" method="_on_building_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/GameSettingsButton" to="MenuManager" method="_on_game_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/SeeBoardButton" to="TurnManager" method="_on_see_board_button_pressed"]

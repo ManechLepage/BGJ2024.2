@@ -3,6 +3,7 @@ extends Node
 
 @onready var turn_manager: TurnManager = %TurnManager
 @onready var label: Label = %Label
+@onready var menu_manager: MenuManager = %MenuManager
 
 var rent: int
 var rent_index: int = 0
@@ -26,6 +27,8 @@ func _on_start_storm() -> void:
 	rent_index += 1
 	rent = rent_ramp[rent_index]
 	update_label()
+	if turn_manager.money < 0:
+		menu_manager.on_death()
 
 func update_label():
 	label.text = "Rent: " + str(rent)

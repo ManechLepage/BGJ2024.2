@@ -9,10 +9,12 @@ extends Node
 @onready var water_label: Label = %Water
 
 @onready var choice: Panel = %Choice
+@onready var see_board_button: Button = %SeeBoardButton
 
 @onready var buildings: Buildings = %Buildings
 @onready var input_manager: InputManager = %InputManager
 @onready var placement_manager: PlacementManager = %PlacementManager
+@onready var menu_manager: MenuManager = %MenuManager
 
 var turn: int = 0
 
@@ -40,9 +42,12 @@ func _on_finished_calculating(total) -> void:
 	water -= total[2]
 	update_turn()
 	input_manager.finishing_turn = false
+	if electricity < 0 or water < 0:
+		menu_manager.on_death()
 
 func _on_start_turn() -> void:
 	choice.visible = true
+	see_board_button.visible = true
 	choices.clear()
 	for i in range(3):
 		choices.append(get_random_building())
@@ -53,17 +58,23 @@ func get_random_building():
 
 func _on_building_1_pressed() -> void:
 	choice.visible = false
+	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[0]
 
 func _on_building_2_pressed() -> void:
 	choice.visible = false
+	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[1]
 
 func _on_building_3_pressed() -> void:
 	choice.visible = false
+	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[2]
 
 func _on_finished_calculating_storm(total: Array) -> void:
 	electricity += total[0]
 	water += total[1]
 	update_turn()
+
+func _on_see_board_button_pressed() -> void:
+	choice.visible = not choice.visible
