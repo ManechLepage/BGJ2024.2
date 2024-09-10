@@ -7,6 +7,10 @@ extends Node2D
 
 @onready var buildings_data: Buildings = %Buildings
 
+@export var open_preview_color: Color
+@export var denied_preview_color: Color
+@export var merging_preview_color: Color
+
 var odd_neighbours: Array[Vector2i] = [
 	Vector2i(1, 0),
 	Vector2i(0, 1),
@@ -62,8 +66,8 @@ func can_merge(position: Vector2i, building: Building):
 	var saved_building: Building = building.duplicate(true)
 	var data = buildings_data.get_building_from_atlas(buildings.get_cell_atlas_coords(position))
 	var target_building = data[0]
-	target_building.current_tier = data[1]
 	if target_building:
+		target_building.current_tier = data[1]
 		if target_building.name == saved_building.name:
 			return target_building.current_tier == saved_building.current_tier
 
@@ -73,7 +77,7 @@ func place_building_at_mouse_position(building: Building):
 
 func place_building(building: Building, position: Vector2i):
 	clear_previews()
-	buildings.set_cell(position, 2, building.sprite_atlas)
+	buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, building.current_tier - 1))
 	check_for_grid_expansion()
 
 
@@ -91,6 +95,7 @@ func place_preview_at_mouse_position(building: Building):
 
 func place_preview(building: Building, position: Vector2i):
 	if has_ground(get_ground_mouse_position()):
+		preview.modulate = update_preview_color(position, building)
 		clear_previews()
 		preview.set_cell(position, 2, building.sprite_atlas)
 
@@ -135,3 +140,11 @@ func get_texture(atlas_coords: Vector2i):
 func debug_positions(positions: Array[Vector2i]):
 	for position in positions:
 		preview.set_cell(position, 2, Vector2i(5, 0))
+
+
+func update_preview_color(position: Vector2i, building: Building):
+	if can_merge(position, building):
+		return merging_preview_color
+	elif is_open_tile(position):
+		return open_preview_color
+	return denied_preview_color

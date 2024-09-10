@@ -36,11 +36,13 @@ func calculate():
 	var buildings: Array[Building] = tile_layer_manager.get_all_buildings()
 	#var buildings: Array[Building]
 	#for building in temporary_buildings:
+		#print(building.get_instance_id())
+		#print(building.position)
 		#var new_building = building.duplicate(true)
 		#buildings.append(new_building)
 	
 	for building in buildings:
-		print(building.position)
+		print(building.current_tier)
 		building_effects.activate_building(building, buildings)
 	
 	var turn_revenue: int = 0

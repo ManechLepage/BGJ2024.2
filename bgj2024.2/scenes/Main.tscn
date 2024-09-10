@@ -61,6 +61,9 @@ glow_hdr_threshold = 0.0
 unique_name_in_owner = true
 texture_filter = 1
 script = ExtResource("1_3o0sb")
+open_preview_color = Color(0.355, 0.445, 0.899, 0.4)
+denied_preview_color = Color(0.879, 0, 0.344, 0.405)
+merging_preview_color = Color(0.228, 0.572, 0, 0.4)
 
 [node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
 modulate = Color(0.8, 0.8, 0.8, 1)
@@ -71,11 +74,10 @@ tile_set = ExtResource("2_parxg")
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAP//AgAAAAAAAAD/////AgAAAAAAAAAAAP7/AgAAAAAAAAD///3/AgAAAAAAAAD+////AgAAAAAAAAD///7/AgAAAAAAAAD//wAAAgAAAAAAAAD//wEAAgAAAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
-modulate = Color(0.411765, 0.541176, 1, 0.427451)
+modulate = Color(0.412, 0.541, 1, 0.4)
 y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
@@ -119,6 +121,10 @@ test_building = ExtResource("4_hulm2")
 [node name="InputManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_mxmak")
+
+[node name="Timer" type="Timer" parent="InputManager"]
+wait_time = 0.7
+one_shot = true
 
 [node name="ScoreCalculator" type="Node" parent="."]
 unique_name_in_owner = true
@@ -282,6 +288,7 @@ text = "Main Menu"
 
 [node name="SettingsMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -307,7 +314,6 @@ texture_hover = ExtResource("36_8xew2")
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -707,6 +713,10 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "See Board"
 
+[node name="BuildingInfo" parent="CanvasLayer/MainUI" instance=ExtResource("25_dqmru")]
+unique_name_in_owner = true
+visible = false
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
@@ -716,6 +726,7 @@ environment = SubResource("Environment_tegag")
 [connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
 [connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
+[connection signal="timeout" from="InputManager/Timer" to="InputManager" method="_on_timer_timeout"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]

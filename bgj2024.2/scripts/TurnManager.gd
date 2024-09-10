@@ -54,7 +54,7 @@ func _on_start_turn() -> void:
 		choice.get_child(4).get_child(i).load_building(choices[i])
 
 func get_random_building():
-	return buildings.buildings.pick_random()
+	return buildings.get_random_building()
 
 func _on_building_1_pressed() -> void:
 	choice.visible = false
