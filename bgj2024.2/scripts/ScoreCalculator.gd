@@ -33,9 +33,14 @@ const TIME_BETWEEN_BUILDINGS = 0.3
 const RANDOM_OFFSET: float = 0.5
 
 func calculate():
-	var buildings: Array[Building] = tile_layer_manager.get_all_buildings().duplicate(true)
+	var buildings: Array[Building] = tile_layer_manager.get_all_buildings()
+	#var buildings: Array[Building]
+	#for building in temporary_buildings:
+		#var new_building = building.duplicate(true)
+		#buildings.append(new_building)
 	
 	for building in buildings:
+		print(building.position)
 		building_effects.activate_building(building, buildings)
 	
 	var turn_revenue: int = 0

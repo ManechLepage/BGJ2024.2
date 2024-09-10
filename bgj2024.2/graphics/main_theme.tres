@@ -1,23 +1,21 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://cir7ir3hautb4"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://cir7ir3hautb4"]
 
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="1_hx3hx"]
 [ext_resource type="Texture2D" uid="uid://dis07xuj8x36o" path="res://graphics/UI/Button/hovered.png" id="1_m7aqu"]
+[ext_resource type="Texture2D" uid="uid://c8egmlk6wim88" path="res://graphics/UI/Button/disabled.aseprite" id="2_6qg0e"]
 [ext_resource type="Texture2D" uid="uid://u7eeluk04f7t" path="res://graphics/UI/Button/normal.png" id="2_s0cns"]
 [ext_resource type="Texture2D" uid="uid://dfwwwt7w3t56g" path="res://graphics/UI/panel.png" id="3_7r1f0"]
 [ext_resource type="Texture2D" uid="uid://dkt5qmwqmj7ny" path="res://graphics/UI/Button/pressed.png" id="3_e0buu"]
 [ext_resource type="Texture2D" uid="uid://b520pui538igv" path="res://graphics/UI/panel2.png" id="6_eu1l8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mp012"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.1, 0.1, 0.1, 0.3)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5ashs"]
+texture = ExtResource("2_6qg0e")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfs4d"]
 content_margin_left = 4.0
@@ -107,7 +105,7 @@ Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 16
 Button/fonts/font = ExtResource("1_hx3hx")
-Button/styles/disabled = SubResource("StyleBoxFlat_mp012")
+Button/styles/disabled = SubResource("StyleBoxTexture_5ashs")
 Button/styles/focus = SubResource("StyleBoxFlat_bfs4d")
 Button/styles/hover = SubResource("StyleBoxTexture_0cbhe")
 Button/styles/normal = SubResource("StyleBoxTexture_0cb6x")

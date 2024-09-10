@@ -4,8 +4,11 @@ extends Node
 @onready var tile_layer_manager: TileLayerManager = %TileLayerManager
 @onready var finish_turn_button: Button = %FinishTurnButton
 @onready var turn_manager: TurnManager = %TurnManager
+@onready var placement_manager: PlacementManager = %PlacementManager
 
 signal clicked_open_tile
+signal clicked_merging_tile
+
 signal finished_turn
 signal start_turn
 signal start_storm
@@ -17,6 +20,10 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("LeftClick"):
 		if tile_layer_manager.is_mouse_open_tile():
 			clicked_open_tile.emit()
+		if placement_manager.current_selected_building:
+			print(placement_manager.current_selected_building.current_tier)
+			if tile_layer_manager.can_merge_at_mouse_position(placement_manager.current_selected_building):
+				clicked_merging_tile.emit()
 
 func _on_finish_turn_pressed() -> void:
 	if finishing_turn:

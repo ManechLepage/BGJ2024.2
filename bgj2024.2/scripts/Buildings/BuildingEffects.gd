@@ -53,9 +53,6 @@ func filter_buildings_by_type(type: Building.TYPE, buildings: Array[Building]):
 	return target_buildings
 
 
-func add_revenue(building: Building, amount: int):
-	building.money += amount
-
 func remove_electricity(building: Building, amount: int):
 	building.electricity = max(0, building.electricity - amount)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=41 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -34,6 +34,10 @@
 [ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="28_fdcus"]
 [ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="31_bowib"]
 [ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="32_ex7d4"]
+[ext_resource type="Texture2D" uid="uid://sad6eqm24lco" path="res://graphics/UI/Icons/settings.aseprite" id="33_pw015"]
+[ext_resource type="Texture2D" uid="uid://bxnlcj74wo5rq" path="res://graphics/UI/Icons/settings_hover.aseprite" id="34_g0yxk"]
+[ext_resource type="Texture2D" uid="uid://e6wipaqwknma" path="res://graphics/UI/Icons/back.aseprite" id="35_7yyl4"]
+[ext_resource type="Texture2D" uid="uid://u5j18t8eyxvd" path="res://graphics/UI/Icons/back_hover.aseprite" id="36_8xew2"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
 texture = ExtResource("25_ei1mg")
@@ -53,14 +57,6 @@ glow_hdr_threshold = 0.0
 
 [node name="Main" type="Node2D"]
 
-[node name="AnimationTarget" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(95, -3)
-
-[node name="AnimationTarget2" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(95, 2)
-
 [node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
 unique_name_in_owner = true
 texture_filter = 1
@@ -75,6 +71,7 @@ tile_set = ExtResource("2_parxg")
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
+tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAP//AgAAAAAAAAD/////AgAAAAAAAAAAAP7/AgAAAAAAAAD///3/AgAAAAAAAAD+////AgAAAAAAAAD///7/AgAAAAAAAAD//wAAAgAAAAAAAAD//wEAAgAAAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
@@ -89,6 +86,14 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 zoom = Vector2(5, 5)
 script = ExtResource("3_fqxni")
+
+[node name="AnimationTarget" type="Node2D" parent="Camera2D"]
+unique_name_in_owner = true
+position = Vector2(106, -2)
+
+[node name="AnimationTarget2" type="Node2D" parent="Camera2D"]
+unique_name_in_owner = true
+position = Vector2(95, 2)
 
 [node name="SoundManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -150,6 +155,7 @@ building_name = "Water Facility"
 
 [node name="Residence" type="Node" parent="BuildingEffects"]
 script = ExtResource("20_a5paj")
+building_name = "Residence"
 
 [node name="RainCollector" type="Node" parent="BuildingEffects"]
 script = ExtResource("22_xmv6v")
@@ -163,6 +169,7 @@ building_name = "Lightning Rod"
 
 [node name="MainMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -188,22 +195,6 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Play"
 
-[node name="SettingsButton" type="Button" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = -6.0
-offset_right = 132.0
-offset_bottom = 72.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Settings"
-
 [node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu"]
 layout_mode = 1
 anchors_preset = 8
@@ -212,13 +203,26 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -132.0
-offset_top = 79.0
-offset_right = 132.0
-offset_bottom = 157.0
+offset_right = 133.0
+offset_bottom = 78.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Quit"
+
+[node name="SettingsButton" type="TextureButton" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.9999
+offset_top = 6.0
+offset_right = -70.9999
+offset_bottom = 22.0
+grow_horizontal = 0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("33_pw015")
+texture_hover = ExtResource("34_g0yxk")
 
 [node name="DifficultyMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -278,7 +282,6 @@ text = "Main Menu"
 
 [node name="SettingsMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -288,18 +291,19 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("24_l2aoc")
 
-[node name="SettingsBackButton" type="Button" parent="CanvasLayer/SettingsMenu"]
+[node name="SettingsBackButton" type="TextureButton" parent="CanvasLayer/SettingsMenu"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = -81.0
-offset_right = 177.0
-offset_bottom = -13.0
+offset_left = 8.0
+offset_top = -87.9999
+offset_right = 40.0
+offset_bottom = -71.9999
 grow_vertical = 0
-theme_override_font_sizes/font_size = 40
-text = "Back"
+scale = Vector2(5, 5)
+texture_normal = ExtResource("35_7yyl4")
+texture_hover = ExtResource("36_8xew2")
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -371,12 +375,13 @@ text = "Next Storm: "
 [node name="Resources" type="Panel" parent="CanvasLayer/MainUI"]
 texture_filter = 1
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -191.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.5
+offset_right = 95.5
 offset_bottom = 80.0
-grow_horizontal = 0
+grow_horizontal = 2
 theme = ExtResource("24_l2aoc")
 
 [node name="Money" type="Label" parent="CanvasLayer/MainUI/Resources"]
@@ -672,17 +677,18 @@ text = "155"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameSettingsButton" type="Button" parent="CanvasLayer/MainUI"]
+[node name="GameSettingsButton" type="TextureButton" parent="CanvasLayer/MainUI"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -132.0
-offset_right = 132.0
-offset_bottom = 78.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 40
-text = "Settings"
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -79.9999
+offset_right = -63.9999
+offset_bottom = 16.0
+grow_horizontal = 0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("33_pw015")
+texture_hover = ExtResource("34_g0yxk")
 
 [node name="SeeBoardButton" type="Button" parent="CanvasLayer/MainUI"]
 unique_name_in_owner = true
@@ -704,6 +710,7 @@ text = "See Board"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
+[connection signal="clicked_merging_tile" from="InputManager" to="PlacementManager" method="_on_input_manager_clicked_merging_tile"]
 [connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
 [connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
@@ -714,8 +721,8 @@ environment = SubResource("Environment_tegag")
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating_storm"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="MenuManager" method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="MenuManager" method="_on_difficulty_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="MenuManager" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="MenuManager" method="_on_settings_back_button_pressed"]

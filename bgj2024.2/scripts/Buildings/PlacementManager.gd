@@ -18,3 +18,8 @@ func _on_clicked_open_tile() -> void:
 	if current_selected_building:
 		tile_layer_manager.place_building_at_mouse_position(current_selected_building)
 		current_selected_building = null
+
+func _on_input_manager_clicked_merging_tile() -> void:
+	if current_selected_building:
+		tile_layer_manager.merge_building_at_mouse_position(current_selected_building)
+		current_selected_building = null

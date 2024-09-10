@@ -2,12 +2,14 @@ extends BuildingEffect
 
 func activate(building: Building, buildings: Array[Building]):
 	var affected_buildings: Array[Building] = parent.get_surrounding_buildings(building, buildings)
+	print(len(affected_buildings))
 	var filtered_affected_buildings: Array[Building] = parent.filter_buildings(building, affected_buildings)
 	
+	print(len(filtered_affected_buildings))
 	if building.current_tier < 3:
-		parent.add_revenue(building, len(filtered_affected_buildings))
+		building.money += len(filtered_affected_buildings)
 	else:
-		parent.add_revenue(building, len(filtered_affected_buildings) * 2)
+		building.money += len(filtered_affected_buildings) * 2
 	
 	if building.current_tier > 1:
 		building.electricity += 1

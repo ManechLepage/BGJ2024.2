@@ -35,11 +35,12 @@ func get_building_mouse_position():
 func get_ground_mouse_position():
 	return ground.local_to_map(get_local_mouse_position())
 
-
 func get_all_buildings():
 	var building_list: Array[Building]
 	for building_position in buildings.get_used_cells():
-		var building: Building = buildings_data.get_building_from_atlas(buildings.get_cell_atlas_coords(building_position)).duplicate(true)
+		var info = buildings_data.get_building_from_atlas(buildings.get_cell_atlas_coords(building_position))
+		var building: Building = info[0]
+		building.current_tier = info[1]
 		building.position = building_position
 		building_list.append(building)
 	return building_list
@@ -54,6 +55,19 @@ func get_neighbouring_positions(position: Vector2i, value:int=0):
 	return neighbours
 
 
+func can_merge_at_mouse_position(building: Building):
+	return can_merge(get_building_mouse_position(), building)
+
+func can_merge(position: Vector2i, building: Building):
+	var saved_building: Building = building.duplicate(true)
+	var data = buildings_data.get_building_from_atlas(buildings.get_cell_atlas_coords(position))
+	var target_building = data[0]
+	target_building.current_tier = data[1]
+	if target_building:
+		if target_building.name == saved_building.name:
+			return target_building.current_tier == saved_building.current_tier
+
+
 func place_building_at_mouse_position(building: Building):
 	place_building(building, get_building_mouse_position())
 
@@ -61,6 +75,15 @@ func place_building(building: Building, position: Vector2i):
 	clear_previews()
 	buildings.set_cell(position, 2, building.sprite_atlas)
 	check_for_grid_expansion()
+
+
+func merge_building_at_mouse_position(building: Building):
+	merge_building(building, get_building_mouse_position())
+
+func merge_building(building: Building, position: Vector2i):
+	clear_previews()
+	buildings.erase_cell(position)
+	buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, 1))
 
 
 func place_preview_at_mouse_position(building: Building):
@@ -108,3 +131,7 @@ func get_texture(atlas_coords: Vector2i):
 	var atlas_image = atlas.texture.get_image()
 	var tile_image = atlas_image.get_region(atlas.get_tile_texture_region(atlas_coords))
 	return ImageTexture.create_from_image(tile_image)
+
+func debug_positions(positions: Array[Vector2i]):
+	for position in positions:
+		preview.set_cell(position, 2, Vector2i(5, 0))
