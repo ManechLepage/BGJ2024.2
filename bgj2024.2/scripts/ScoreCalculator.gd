@@ -22,7 +22,7 @@ extends Node
 signal finished_calculating(total: Array)
 signal finished_calculating_storm(total: Array)
 
-const ANIMATION_SPEED: float = 1.0
+var ANIMATION_SPEED: float = 1.0
 
 const TIME_BETWEEN_TWEENS: float = 0.1
 const TIME_AFTER_REVENUE: float = 0.5

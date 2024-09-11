@@ -51,6 +51,7 @@ theme_override_constants/line_spacing = -10
 theme_override_font_sizes/font_size = 28
 text = "Name"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Panel" type="Panel" parent="Panel"]

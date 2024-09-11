@@ -110,6 +110,7 @@ Button/styles/focus = SubResource("StyleBoxFlat_bfs4d")
 Button/styles/hover = SubResource("StyleBoxTexture_0cbhe")
 Button/styles/normal = SubResource("StyleBoxTexture_0cb6x")
 Button/styles/pressed = SubResource("StyleBoxTexture_51jiw")
+HSlider/styles/slider = null
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=44 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -37,7 +37,11 @@
 [ext_resource type="Texture2D" uid="uid://sad6eqm24lco" path="res://graphics/UI/Icons/settings.aseprite" id="33_pw015"]
 [ext_resource type="Texture2D" uid="uid://bxnlcj74wo5rq" path="res://graphics/UI/Icons/settings_hover.aseprite" id="34_g0yxk"]
 [ext_resource type="Texture2D" uid="uid://e6wipaqwknma" path="res://graphics/UI/Icons/back.aseprite" id="35_7yyl4"]
+[ext_resource type="Script" path="res://scripts/UI/SettingsMenu.gd" id="36_8p2mo"]
 [ext_resource type="Texture2D" uid="uid://u5j18t8eyxvd" path="res://graphics/UI/Icons/back_hover.aseprite" id="36_8xew2"]
+[ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="36_xnb2f"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xn282"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
 texture = ExtResource("25_ei1mg")
@@ -123,7 +127,7 @@ unique_name_in_owner = true
 script = ExtResource("5_mxmak")
 
 [node name="Timer" type="Timer" parent="InputManager"]
-wait_time = 0.7
+wait_time = 0.3
 one_shot = true
 
 [node name="ScoreCalculator" type="Node" parent="."]
@@ -170,6 +174,31 @@ building_name = "Rain Collector"
 [node name="LightningRod" type="Node" parent="BuildingEffects"]
 script = ExtResource("23_1trlr")
 building_name = "Lightning Rod"
+
+[node name="BuildingInfo" parent="." instance=ExtResource("25_dqmru")]
+unique_name_in_owner = true
+visible = false
+material = SubResource("CanvasItemMaterial_xn282")
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 202.0
+offset_bottom = 265.0
+scale = Vector2(0.2, 0.2)
+
+[node name="Name" parent="BuildingInfo/Panel" index="0"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Description" parent="BuildingInfo/Panel/Panel" index="0"]
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+
+[node name="Revenue" parent="BuildingInfo/Panel" index="3"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Electricity" parent="BuildingInfo/Panel" index="4"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Water" parent="BuildingInfo/Panel" index="5"]
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -232,7 +261,6 @@ texture_hover = ExtResource("34_g0yxk")
 
 [node name="DifficultyMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -250,13 +278,36 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -123.5
-offset_top = 26.0
+offset_top = -20.0
 offset_right = 123.5
-offset_bottom = 94.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Select"
+
+[node name="DifficultyOptionButton" type="OptionButton" parent="CanvasLayer/DifficultyMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = 51.0
+offset_right = 124.0
+offset_bottom = 101.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("36_xnb2f")
+item_count = 4
+popup/item_0/text = "Easy"
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+popup/item_3/text = "Impossible"
+popup/item_3/id = 3
 
 [node name="RestartMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -278,13 +329,37 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -174.0
-offset_top = -36.5
+offset_top = -79.5
 offset_right = 174.0
-offset_bottom = 36.5
+offset_bottom = -6.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Main Menu"
+
+[node name="StatsPanel" type="Panel" parent="CanvasLayer/RestartMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -174.0
+offset_top = -2.0
+offset_right = 174.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TotalMoneyLabel" type="Label" parent="CanvasLayer/RestartMenu/StatsPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 347.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 20
+text = "Total Money Gained:"
 
 [node name="SettingsMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -297,6 +372,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("24_l2aoc")
+script = ExtResource("36_8p2mo")
 
 [node name="SettingsBackButton" type="TextureButton" parent="CanvasLayer/SettingsMenu"]
 layout_mode = 1
@@ -314,6 +390,7 @@ texture_hover = ExtResource("36_8xew2")
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -321,7 +398,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 10.0
 offset_top = 9.0
-offset_right = -10.0
+offset_right = -7.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -361,7 +438,7 @@ offset_right = -26.0
 offset_bottom = 24.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
-text = "Turn: "
+text = "Day: "
 
 [node name="NextStormLabel" type="Label" parent="CanvasLayer/MainUI/InfoLabel"]
 unique_name_in_owner = true
@@ -713,10 +790,6 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "See Board"
 
-[node name="BuildingInfo" parent="CanvasLayer/MainUI" instance=ExtResource("25_dqmru")]
-unique_name_in_owner = true
-visible = false
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
@@ -735,6 +808,7 @@ environment = SubResource("Environment_tegag")
 [connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="MenuManager" method="_on_difficulty_button_pressed"]
+[connection signal="item_selected" from="CanvasLayer/DifficultyMenu/DifficultyOptionButton" to="MenuManager" method="_on_difficulty_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="MenuManager" method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="MenuManager" method="_on_settings_back_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]
@@ -743,3 +817,5 @@ environment = SubResource("Environment_tegag")
 [connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/GameSettingsButton" to="MenuManager" method="_on_game_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/SeeBoardButton" to="TurnManager" method="_on_see_board_button_pressed"]
+
+[editable path="BuildingInfo"]

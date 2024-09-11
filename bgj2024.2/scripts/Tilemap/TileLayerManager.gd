@@ -78,6 +78,7 @@ func place_building_at_mouse_position(building: Building):
 func place_building(building: Building, position: Vector2i):
 	clear_previews()
 	buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, building.current_tier - 1))
+	building.position = position
 	check_for_grid_expansion()
 
 

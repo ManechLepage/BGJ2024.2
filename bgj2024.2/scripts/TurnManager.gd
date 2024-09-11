@@ -24,6 +24,8 @@ var water: int = 100
 
 var choices: Array[Building]
 
+var total_money: int = 0
+
 func _ready() -> void:
 	_on_finished_calculating([0, 0, 0])
 
@@ -40,6 +42,8 @@ func _on_finished_calculating(total) -> void:
 	money += total[0]
 	electricity -= total[1]
 	water -= total[2]
+	total_money += total[0]
+	
 	update_turn()
 	input_manager.finishing_turn = false
 	if electricity < 0 or water < 0:

@@ -23,9 +23,12 @@ var is_storm: bool = false
 
 var last_grid_mouse_position: Vector2i
 
+@export var offset: Vector2
+
 func _process(delta: float) -> void:
 	var current_grid_mouse_position: Vector2i = tile_layer_manager.get_building_mouse_position()
 	if current_grid_mouse_position != last_grid_mouse_position:
+		building_info.visible = false
 		last_grid_mouse_position = current_grid_mouse_position
 		timer.time_left
 		timer.start()
@@ -69,3 +72,4 @@ func _on_timer_timeout() -> void:
 		if building:
 			building_info.load_building(building)
 			building_info.visible = true
+			building_info.position = tile_layer_manager.get_local_mouse_position() + offset
