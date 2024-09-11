@@ -18,6 +18,7 @@ extends Node
 @onready var water_count: Label = %WaterCount
 @onready var revenue_count: Label = %RevenueCount
 
+@onready var rain_particles: CPUParticles2D = %RainParticles
 
 signal finished_calculating(total: Array)
 signal finished_calculating_storm(total: Array)
@@ -31,6 +32,9 @@ const SCALE_TIME: float = 0.05
 const TIME_BETWEEN_BUILDINGS = 0.3
 
 const RANDOM_OFFSET: float = 0.5
+
+@export var green: Color
+@export var red: Color
 
 func calculate():
 	var buildings: Array[Building] = tile_layer_manager.get_all_buildings()
@@ -140,8 +144,62 @@ func _on_finished_turn() -> void:
 func _on_start_storm() -> void:
 	var buildings: Array[Building] = tile_layer_manager.get_all_buildings().duplicate(true)
 	
+	lightning_count.add_theme_color_override("font_color", green)
+	water_count.add_theme_color_override("font_color", green)
+	
+	consumption_turn_total.visible = true
+	consumption_turn_total.modulate.a = 1
+	
+	rain_particles.visible = true
+	rain_particles.modulate.a = 1
+	
+	lightning_count.text = str(0)
+	water_count.text = str(0)
+	
+	await get_tree().create_timer(1 * ANIMATION_SPEED).timeout
 	var total: Array = [0, 0]
 	for building in buildings:
 		total = building_effects.activate_building_storm(building, total[0], total[1])
+		animate_storm(building)
+		await get_tree().create_timer(0.1 * ANIMATION_SPEED).timeout
+	
+	await get_tree().create_timer(1 * ANIMATION_SPEED).timeout
+	var tween1 = get_tree().create_tween()
+	var tween2 = get_tree().create_tween()
+	
+	tween1.tween_property(consumption_turn_total, "modulate:a", 0, 0.3 * ANIMATION_SPEED)
+	tween2.tween_property(rain_particles, "modulate:a", 0, 0.3 * ANIMATION_SPEED)
+	
+	await tween2.finished
+	
+	consumption_turn_total.visible = false
+	rain_particles.visible = false
+	
+	lightning_count.add_theme_color_override("font_color", red)
+	water_count.add_theme_color_override("font_color", red)
 	
 	finished_calculating_storm.emit(total)
+
+func animate_storm(building: Building):
+	if building.name == "Rain Collector":
+		var value = 50
+		if building.current_tier > 1:
+			value += 30
+		if building.current_tier > 2:
+			value += 70
+		for i in range(int(value / 2)):
+			water_count.text = str(int(water_count.text) + 2)
+			animate_label(water_count)
+			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
+			animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)
+	elif building.name == "Lightning Rod":
+		var value = 50
+		if building.current_tier > 1:
+			value += 30
+		if building.current_tier > 2:
+			value += 70
+		for i in range(int(value / 2)):
+			lightning_count.text = str(int(lightning_count.text) + 2)
+			animate_label(lightning_count)
+			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
+			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)

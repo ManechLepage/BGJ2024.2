@@ -16,15 +16,17 @@ extends Node
 @onready var placement_manager: PlacementManager = %PlacementManager
 @onready var menu_manager: MenuManager = %MenuManager
 
-var turn: int = 0
+var turn: int = 9
 
-var money: int = 0
+var money: int = 20
 var electricity: int = 100
 var water: int = 100
 
 var choices: Array[Building]
 
-var total_money: int = 0
+var total_money: int = money
+
+signal finished_choice
 
 func _ready() -> void:
 	_on_finished_calculating([0, 0, 0])
@@ -64,16 +66,19 @@ func _on_building_1_pressed() -> void:
 	choice.visible = false
 	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[0]
+	finished_choice.emit()
 
 func _on_building_2_pressed() -> void:
 	choice.visible = false
 	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[1]
+	finished_choice.emit()
 
 func _on_building_3_pressed() -> void:
 	choice.visible = false
 	see_board_button.visible = false
 	placement_manager.current_selected_building = choices[2]
+	finished_choice.emit()
 
 func _on_finished_calculating_storm(total: Array) -> void:
 	electricity += total[0]

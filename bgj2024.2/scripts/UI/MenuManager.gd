@@ -4,6 +4,7 @@ extends Node
 @onready var tile_layer_manager: TileLayerManager = %TileLayerManager
 @onready var turn_manager: TurnManager = %TurnManager
 @onready var rent_manager: RentManager = %RentManager
+@onready var tutorial_manager: TutorialManager = %TutorialManager
 
 @onready var main_ui: Control = %MainUI
 @onready var main_menu: Control = %MainMenu
@@ -43,6 +44,7 @@ func _on_difficulty_button_pressed() -> void:
 	focus(main_ui)
 	tile_layer_manager.visible = true
 	rent_manager.load_difficulty()
+	tutorial_manager.load_text1()
 
 func _on_settings_button_pressed() -> void:
 	is_from_game = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=48 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/UI/MenuManager.gd" id="5_5m33o"]
 [ext_resource type="Script" path="res://scripts/RentManager.gd" id="5_b874n"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
+[ext_resource type="Script" path="res://scripts/TutorialManager.gd" id="6_j45wb"]
 [ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
 [ext_resource type="Script" path="res://scripts/Buildings/Buildings.gd" id="7_q8l3x"]
 [ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="8_wheyb"]
@@ -42,6 +43,16 @@
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="36_xnb2f"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xn282"]
+
+[sub_resource type="Gradient" id="Gradient_qsonl"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f4wuq"]
+gradient = SubResource("Gradient_qsonl")
+width = 50
+
+[sub_resource type="Gradient" id="Gradient_n0xba"]
+offsets = PackedFloat32Array(0.446667, 1)
+colors = PackedColorArray(0.138522, 0.125183, 0.185919, 1, 0.129693, 0.199237, 0.351209, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_py6rk"]
 texture = ExtResource("25_ei1mg")
@@ -109,6 +120,10 @@ script = ExtResource("4_4mq0e")
 unique_name_in_owner = true
 script = ExtResource("5_5m33o")
 
+[node name="TutorialManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_j45wb")
+
 [node name="RentManager" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("5_b874n")
@@ -137,6 +152,8 @@ animation_texture = ExtResource("11_plii6")
 coin_texture = ExtResource("28_fdcus")
 electricity_texture = ExtResource("31_bowib")
 water_texture = ExtResource("32_ex7d4")
+green = Color(0, 1, 0, 1)
+red = Color(0.905882, 0.172549, 0, 1)
 
 [node name="Buildings" type="Node" parent="."]
 unique_name_in_owner = true
@@ -202,6 +219,25 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Particles" type="Node" parent="CanvasLayer"]
+
+[node name="RainParticles" type="CPUParticles2D" parent="CanvasLayer/Particles"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(1000, -100)
+rotation = 0.331613
+amount = 150
+lifetime = 1.5
+speed_scale = 2.3
+local_coords = true
+texture = SubResource("GradientTexture1D_f4wuq")
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1)
+angle_min = 90.0
+angle_max = 90.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_n0xba")
+
 [node name="MainMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
@@ -261,6 +297,7 @@ texture_hover = ExtResource("34_g0yxk")
 
 [node name="DifficultyMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -390,7 +427,6 @@ texture_hover = ExtResource("36_8xew2")
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -790,15 +826,250 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "See Board"
 
+[node name="Tutorial2" type="Panel" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -169.5
+offset_bottom = 169.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/MainUI/Tutorial2"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description1_1" type="Label" parent="CanvasLayer/MainUI/Tutorial2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Every turn, you have to chose one new building to add to your city."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Description1_2" type="Label" parent="CanvasLayer/MainUI/Tutorial2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "There is three type of building: Residential, Commercial and Industrial"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Description1_3" type="Label" parent="CanvasLayer/MainUI/Tutorial2"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Buildings can be upgraded up to level 3"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Continue2Button" type="Button" parent="CanvasLayer/MainUI/Tutorial2"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 53.0
+offset_top = -46.0
+offset_right = -62.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[node name="Tutorial3" type="Panel" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 307.5
+offset_top = -169.0
+offset_right = 563.5
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/MainUI/Tutorial3"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description2_1" type="Label" parent="CanvasLayer/MainUI/Tutorial3"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Then, you need to chose where to place your building. You can upgrade buildings by placing one on top of another with the same level. 
+
+Good luck!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Continue3Button" type="Button" parent="CanvasLayer/MainUI/Tutorial3"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 53.0
+offset_top = -46.0
+offset_right = -62.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
+[node name="Tutorial1" type="Panel" parent="CanvasLayer/MainUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -169.5
+offset_right = 128.0
+offset_bottom = 169.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/MainUI/Tutorial1"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 34.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/MainUI/Tutorial1"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "In a world as cold and desperate as this one, not a lot of ressources are available. That is why storms are you're best friend. They give you water and elecricity necessary to live."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Description2" type="Label" parent="CanvasLayer/MainUI/Tutorial1"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -294.0
+offset_right = -11.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Your goal is to survive as long as possible by creating your own city. But, you have a lord that demands money every storm!"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/MainUI/Tutorial1"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 53.0
+offset_top = -46.0
+offset_right = -62.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Continue"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
+[connection signal="finished_choice" from="TurnManager" to="TutorialManager" method="_on_turn_manager_finished_choice"]
 [connection signal="clicked_merging_tile" from="InputManager" to="PlacementManager" method="_on_input_manager_clicked_merging_tile"]
 [connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
 [connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
 [connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
+[connection signal="start_turn" from="InputManager" to="TutorialManager" method="_on_input_manager_start_turn"]
 [connection signal="timeout" from="InputManager/Timer" to="InputManager" method="_on_timer_timeout"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating"]
@@ -817,5 +1088,8 @@ environment = SubResource("Environment_tegag")
 [connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/GameSettingsButton" to="MenuManager" method="_on_game_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/SeeBoardButton" to="TurnManager" method="_on_see_board_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial2/Continue2Button" to="TutorialManager" method="_on_continue_2_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial3/Continue3Button" to="TutorialManager" method="_on_continue_3_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial1/ContinueButton" to="TutorialManager" method="_on_continue_button_pressed"]
 
 [editable path="BuildingInfo"]
