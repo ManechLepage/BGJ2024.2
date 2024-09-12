@@ -15,22 +15,25 @@ var rent_rule = 0.03
 
 func load_difficulty():
 	if difficulty == DIFFICULTY.EASY:
-		rent_rule = 0.02
-	elif difficulty == DIFFICULTY.MEDIUM:
-		rent_rule = 0.03
-	elif difficulty == DIFFICULTY.HARD:
 		rent_rule = 0.04
-	else:
+	elif difficulty == DIFFICULTY.MEDIUM:
 		rent_rule = 0.05
+	elif difficulty == DIFFICULTY.HARD:
+		rent_rule = 0.07
+	else:
+		rent_rule = 0.10
 
 func _ready() -> void:
-	rent = 0.03 * ((rent_index * 10) ** 2)
+	rent = rent_rule * ((rent_index * 10) ** 2)
 	update_label()
+	var calculated_rent = 1
+	for i in range(10):
+		calculated_rent += 1
 
 func _on_start_storm() -> void:
 	turn_manager.money -= rent
 	rent_index += 1
-	rent = 0.03 * ((rent_index * 10) ** 2)
+	rent = rent_rule * ((rent_index * 10) ** 2)
 	update_label()
 	if turn_manager.money < 0:
 		menu_manager.on_death()

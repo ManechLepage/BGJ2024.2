@@ -55,6 +55,7 @@ func _on_finish_turn_pressed() -> void:
 			start_turn.emit()
 			finish_turn_button.text = "Finish Turn"
 			finishing_turn = true
+			finish_turn_button.disabled = true
 		else:
 			start_storm.emit()
 			finish_turn_button.text = "Start Turn"

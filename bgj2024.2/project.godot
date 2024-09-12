@@ -19,6 +19,10 @@ config/features=PackedStringArray("4.3", "Mobile")
 
 aseprite_executable_path="C:/Program Files (x86)/Steam/steamapps/common/Aseprite/Aseprite.exe"
 
+[autoload]
+
+GlobalInfo="*res://scripts/global_infp.gd"
+
 [display]
 
 window/stretch/mode="viewport"

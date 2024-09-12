@@ -14,6 +14,8 @@ extends Node
 
 @onready var total_money_label: Label = %TotalMoneyLabel
 
+@onready var canvas_layer: CanvasLayer = %CanvasLayer
+
 var is_from_game: bool = false
 
 func focus(menu: Control):
@@ -32,13 +34,14 @@ func on_death():
 	tile_layer_manager.visible = true
 
 func _on_main_menu_button_pressed() -> void:
-	focus(main_menu)
+	get_tree().reload_current_scene()
 
 func _ready() -> void:
 	focus(main_menu)
 
 func _on_play_button_pressed() -> void:
 	focus(difficulty_menu)
+	canvas_layer.layer = 1
 
 func _on_difficulty_button_pressed() -> void:
 	focus(main_ui)

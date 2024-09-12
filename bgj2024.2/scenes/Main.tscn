@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=49 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -41,6 +41,7 @@
 [ext_resource type="Script" path="res://scripts/UI/SettingsMenu.gd" id="36_8p2mo"]
 [ext_resource type="Texture2D" uid="uid://u5j18t8eyxvd" path="res://graphics/UI/Icons/back_hover.aseprite" id="36_8xew2"]
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="36_xnb2f"]
+[ext_resource type="Texture2D" uid="uid://0hk4um4s37c7" path="res://graphics/UI/Title.aseprite" id="37_bsfar"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xn282"]
 
@@ -96,21 +97,24 @@ modulate = Color(0.412, 0.541, 1, 0.4)
 y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
-[node name="AnimationSprites" type="Node2D" parent="."]
+[node name="Animations" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="AnimationTarget" type="Node2D" parent="Animations"]
+unique_name_in_owner = true
+position = Vector2(1138, 317)
+
+[node name="AnimationTarget2" type="Node2D" parent="Animations"]
+unique_name_in_owner = true
+position = Vector2(1127, 321)
+
+[node name="AnimationSprites" type="Node2D" parent="Animations"]
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(5, 5)
 script = ExtResource("3_fqxni")
-
-[node name="AnimationTarget" type="Node2D" parent="Camera2D"]
-unique_name_in_owner = true
-position = Vector2(106, -2)
-
-[node name="AnimationTarget2" type="Node2D" parent="Camera2D"]
-unique_name_in_owner = true
-position = Vector2(95, 2)
 
 [node name="SoundManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -218,6 +222,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = -1
 
 [node name="Particles" type="Node" parent="CanvasLayer"]
 
@@ -237,63 +243,6 @@ angle_min = 90.0
 angle_max = 90.0
 scale_amount_max = 2.0
 color_ramp = SubResource("Gradient_n0xba")
-
-[node name="MainMenu" type="Control" parent="CanvasLayer"]
-unique_name_in_owner = true
-visible = false
-texture_filter = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("24_l2aoc")
-
-[node name="PlayButton" type="Button" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = -91.0
-offset_right = 132.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Play"
-
-[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.0
-offset_right = 133.0
-offset_bottom = 78.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "Quit"
-
-[node name="SettingsButton" type="TextureButton" parent="CanvasLayer/MainMenu"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -86.9999
-offset_top = 6.0
-offset_right = -70.9999
-offset_bottom = 22.0
-grow_horizontal = 0
-scale = Vector2(5, 5)
-texture_normal = ExtResource("33_pw015")
-texture_hover = ExtResource("34_g0yxk")
 
 [node name="DifficultyMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -337,6 +286,7 @@ offset_bottom = 101.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("36_xnb2f")
+selected = 1
 item_count = 4
 popup/item_0/text = "Easy"
 popup/item_1/text = "Medium"
@@ -427,6 +377,7 @@ texture_hover = ExtResource("36_8xew2")
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -1059,6 +1010,101 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Continue"
 
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.9, 0.9, 0.9, 1)
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("24_l2aoc")
+
+[node name="Ground" type="TileMapLayer" parent="CanvasLayer/MainMenu"]
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wcAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAcAAQAAAAAAAAABAAgAAQAAAAAAAAABAAcAAQAAAAAAAAACAAgAAQAAAAAAAAACAAcAAQAAAAAAAAADAAgAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAgAAQAAAAAAAAADAAkAAQAAAAAAAAACAAkAAQAAAAAAAAABAAkAAQAAAAAAAAABAAoAAQAAAAAAAAAAAAkAAQAAAAAAAAAAAAoAAQAAAAAAAAD//wkAAQAAAAAAAAACAAoAAQAAAAAAAAADAAsAAQAAAAAAAAADAAoAAQAAAAAAAAACAAsAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAgAAQAAAAAAAAAFAAkAAQAAAAAAAAAFAAoAAQAAAAAAAAAFAAsAAQAAAAAAAAAFAAwAAQAAAAAAAAAEAA0AAQAAAAAAAAAEAAwAAQAAAAAAAAAEAAsAAQAAAAAAAAAEAAoAAQAAAAAAAAAEAAkAAQAAAAAAAAAFAAcAAQAAAAAAAAADAA0AAQAAAAAAAAADAAwAAQAAAAAAAAACAA0AAQAAAAAAAAACAAwAAQAAAAAAAAABAA0AAQAAAAAAAAABAAwAAQAAAAAAAAABAAsAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAD//wsAAQAAAAAAAAAAAA0AAQAAAAAAAAD//w0AAQAAAAAAAAAFAA0AAQAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings" type="TileMapLayer" parent="CanvasLayer/MainMenu"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wUAAgAAAAAAAAAAAAUAAgAAAAEAAAABAAYAAgAAAAIAAAAAAAYAAgACAAIAAAAAAAcAAgAGAAEAAAABAAcAAgABAAEAAAAAAAoAAgABAAAAAAACAAwAAgADAAAAAAAFAAYAAgAEAAAAAAAFAAUAAgAEAAEAAAAFAAcAAgAEAAIAAAAFAAgAAgAFAAEAAAAEAAkAAgAFAAAAAAAEAAcAAgAFAAAAAAAFAAkAAgABAAEAAAAFAAoAAgADAAEAAAAEAAgAAgACAAEAAAADAAcAAgAAAAIAAAADAAkAAgAGAAEAAAADAAgAAgACAAEAAAACAAcAAgAAAAAAAAACAAYAAgABAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+y_sort_origin = 1
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/MainMenu"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 41.0
+offset_right = 132.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/MainMenu"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = 132.0
+offset_right = 133.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[node name="SettingsButton" type="TextureButton" parent="CanvasLayer/MainMenu"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 497.0
+offset_top = -324.0
+offset_right = 513.0
+offset_bottom = -308.0
+grow_horizontal = 0
+scale = Vector2(5, 5)
+texture_normal = ExtResource("33_pw015")
+texture_hover = ExtResource("34_g0yxk")
+
+[node name="Title" type="TextureRect" parent="CanvasLayer/MainMenu"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -381.0
+offset_top = -209.0
+offset_right = -192.0
+offset_bottom = -177.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4, 4)
+texture = ExtResource("37_bsfar")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
@@ -1068,16 +1114,13 @@ environment = SubResource("Environment_tegag")
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
 [connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
-[connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
 [connection signal="start_turn" from="InputManager" to="TutorialManager" method="_on_input_manager_start_turn"]
+[connection signal="start_turn" from="InputManager" to="TurnManager" method="_on_start_turn"]
 [connection signal="timeout" from="InputManager/Timer" to="InputManager" method="_on_timer_timeout"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating"]
 [connection signal="finished_calculating" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating_storm"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="MenuManager" method="_on_play_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="MenuManager" method="_on_difficulty_button_pressed"]
 [connection signal="item_selected" from="CanvasLayer/DifficultyMenu/DifficultyOptionButton" to="MenuManager" method="_on_difficulty_option_button_item_selected"]
 [connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="MenuManager" method="_on_main_menu_button_pressed"]
@@ -1091,5 +1134,8 @@ environment = SubResource("Environment_tegag")
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial2/Continue2Button" to="TutorialManager" method="_on_continue_2_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial3/Continue3Button" to="TutorialManager" method="_on_continue_3_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial1/ContinueButton" to="TutorialManager" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="MenuManager" method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 
 [editable path="BuildingInfo"]

@@ -182,22 +182,22 @@ func _on_start_storm() -> void:
 
 func animate_storm(building: Building):
 	if building.name == "Rain Collector":
-		var value = 50
+		var value = 25
 		if building.current_tier > 1:
-			value += 30
+			value += 25
 		if building.current_tier > 2:
-			value += 70
+			value += 50
 		for i in range(int(value / 2)):
 			water_count.text = str(int(water_count.text) + 2)
 			animate_label(water_count)
 			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
 			animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)
 	elif building.name == "Lightning Rod":
-		var value = 50
+		var value = 25
 		if building.current_tier > 1:
-			value += 30
+			value += 25
 		if building.current_tier > 2:
-			value += 70
+			value += 50
 		for i in range(int(value / 2)):
 			lightning_count.text = str(int(lightning_count.text) + 2)
 			animate_label(lightning_count)

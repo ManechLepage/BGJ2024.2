@@ -16,7 +16,9 @@ extends Node
 @onready var placement_manager: PlacementManager = %PlacementManager
 @onready var menu_manager: MenuManager = %MenuManager
 
-var turn: int = 9
+@onready var finish_turn_button: Button = %FinishTurnButton
+
+var turn: int = 0
 
 var money: int = 20
 var electricity: int = 100
