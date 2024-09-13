@@ -5,6 +5,7 @@ extends Node2D
 @onready var buildings: TileMapLayer = $Buildings
 @onready var preview: TileMapLayer = $Preview
 
+@onready var sound_manager: SoundManager = %SoundManager
 @onready var buildings_data: Buildings = %Buildings
 
 @export var open_preview_color: Color
@@ -63,9 +64,11 @@ func can_merge_at_mouse_position(building: Building):
 	return can_merge(get_building_mouse_position(), building)
 
 func can_merge(position: Vector2i, building: Building):
+	var tier = building.current_tier
 	var saved_building: Building = building.duplicate(true)
+	saved_building.current_tier = tier
 	var data = buildings_data.get_building_from_atlas(buildings.get_cell_atlas_coords(position))
-	var target_building = data[0]
+	var target_building: Building = data[0]
 	if target_building:
 		target_building.current_tier = data[1]
 		if target_building.name == saved_building.name:
@@ -76,6 +79,7 @@ func place_building_at_mouse_position(building: Building):
 	place_building(building, get_building_mouse_position())
 
 func place_building(building: Building, position: Vector2i):
+	sound_manager.play_place_building()
 	clear_previews()
 	buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, building.current_tier - 1))
 	building.position = position
@@ -86,9 +90,13 @@ func merge_building_at_mouse_position(building: Building):
 	merge_building(building, get_building_mouse_position())
 
 func merge_building(building: Building, position: Vector2i):
+	sound_manager.play_merge_building()
 	clear_previews()
 	buildings.erase_cell(position)
-	buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, 1))
+	if building.current_tier == 1:
+		buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, 1))
+	else:
+		buildings.set_cell(position, 2, building.sprite_atlas + Vector2i(0, 2))
 
 
 func place_preview_at_mouse_position(building: Building):

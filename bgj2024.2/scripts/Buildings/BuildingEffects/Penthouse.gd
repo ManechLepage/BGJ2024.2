@@ -11,5 +11,4 @@ func activate(building: Building, buildings: Array[Building]):
 	
 	if building.current_tier > 1:
 		building.money += 1
-	
-	print(building.money)
+		

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://clkiyu8v7ccpv"]
+[gd_scene load_steps=10 format=3 uid="uid://clkiyu8v7ccpv"]
 
 [ext_resource type="Theme" uid="uid://cir7ir3hautb4" path="res://graphics/main_theme.tres" id="1_jrj41"]
 [ext_resource type="Script" path="res://scripts/UI/BuildingCard.gd" id="2_ppjgu"]
 [ext_resource type="Texture2D" uid="uid://cavif5jj0876s" path="res://graphics/UI/panel3.png" id="3_6fhed"]
 [ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="4_8omtr"]
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="4_32frl"]
+[ext_resource type="Texture2D" uid="uid://co1421x623wlx" path="res://graphics/Tiles/Floor.png" id="5_76upg"]
 [ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="5_ukbj5"]
 [ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="6_ap50y"]
 
@@ -26,6 +27,9 @@ offset_right = 128.0
 offset_bottom = 192.0
 theme = ExtResource("1_jrj41")
 script = ExtResource("2_ppjgu")
+industrial_color = Color(0.570669, 0.210454, 0.226794, 1)
+comercial_color = Color(0.505484, 0.574098, 0.745122, 1)
+residential_color = Color(0.711736, 0.720269, 0.474222, 1)
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -44,12 +48,13 @@ anchor_right = 0.5
 offset_left = -93.0
 offset_top = 3.0
 offset_right = 93.0
-offset_bottom = 45.0
+offset_bottom = 29.0
 grow_horizontal = 2
 theme = ExtResource("1_jrj41")
-theme_override_constants/line_spacing = -10
-theme_override_font_sizes/font_size = 28
-text = "Name"
+theme_override_constants/line_spacing = -8
+theme_override_font_sizes/font_size = 25
+text = "Name
+s"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -97,11 +102,12 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -93.0
-offset_top = -79.0
+offset_top = -74.0
 offset_right = -29.0
-offset_bottom = -15.0
+offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 2
+texture = ExtResource("5_76upg")
 
 [node name="Revenue" type="Label" parent="Panel"]
 unique_name_in_owner = true
@@ -109,10 +115,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 43.0
-offset_top = -79.0
-offset_right = 72.0
-offset_bottom = -56.0
+offset_left = 45.0
+offset_top = -76.0
+offset_right = 74.0
+offset_bottom = -53.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = ": 0"
@@ -124,9 +130,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 43.0
-offset_top = -44.0
+offset_top = -42.0
 offset_right = 72.0
-offset_bottom = -21.0
+offset_bottom = -19.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = ": 0"
@@ -138,9 +144,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 43.0
-offset_top = -9.0
+offset_top = -7.0
 offset_right = 72.0
-offset_bottom = 14.0
+offset_bottom = 16.0
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = ": 0"
@@ -154,10 +160,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -183.0
-offset_top = -82.0
-offset_right = -151.0
-offset_bottom = -50.0
+offset_left = -181.0
+offset_top = -79.0
+offset_right = -149.0
+offset_bottom = -47.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("4_8omtr")
@@ -172,9 +178,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -183.0
-offset_top = -48.0
+offset_top = -46.0
 offset_right = -151.0
-offset_bottom = -16.0
+offset_bottom = -14.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("5_ukbj5")
@@ -189,9 +195,25 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -183.0
-offset_top = -14.0
+offset_top = -12.0
 offset_right = -151.0
-offset_bottom = 18.0
+offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 texture = ExtResource("6_ap50y")
+
+[node name="Type" type="Label" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.5
+offset_top = 29.0
+offset_right = 58.5
+offset_bottom = 57.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "Industrial"
+horizontal_alignment = 1
+vertical_alignment = 1

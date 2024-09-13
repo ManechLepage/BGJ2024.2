@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dsllafpf00ryb"
+path="res://.godot/imported/AvapXia - The Scholar.mp3-2a69dd4f9e3fc573c918921e8e3e1c07.mp3str"
+
+[deps]
+
+source_file="res://sounds/Music/AvapXia - The Scholar.mp3"
+dest_files=["res://.godot/imported/AvapXia - The Scholar.mp3-2a69dd4f9e3fc573c918921e8e3e1c07.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

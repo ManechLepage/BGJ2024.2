@@ -7,6 +7,11 @@ var building: Building
 @onready var electricity: Label = %Electricity
 @onready var water: Label = %Water
 @onready var sprite: TextureRect = %Sprite
+@onready var type: Label = %Type
+
+@export var industrial_color: Color
+@export var comercial_color: Color
+@export var residential_color: Color
 
 var main = load("res://ressources/TileSets/main.tres")
 
@@ -24,8 +29,18 @@ func load_building(_building: Building):
 	
 	var total = get_consumption_values(building)
 	revenue.text = ": " + str(total[0])
-	electricity.text = ": " + str(total[1])
-	water.text = ": " + str(total[2])
+	electricity.text = ": -" + str(total[1])
+	water.text = ": -" + str(total[2])
+	
+	if building.type == Building.TYPE.RESIDENTIAL:
+		type.add_theme_color_override("font_color", residential_color)
+		type.text = "Residential"
+	elif building.type == Building.TYPE.COMERCIAL:
+		type.add_theme_color_override("font_color", comercial_color)
+		type.text = "Comercial"
+	elif building.type == Building.TYPE.INDUSTRIAL:
+		type.add_theme_color_override("font_color", industrial_color)
+		type.text = "Industrial"
 	
 	sprite.texture = get_tree().get_first_node_in_group("TileMap").get_texture(building.sprite_atlas + Vector2i(0, building.current_tier - 1))
 

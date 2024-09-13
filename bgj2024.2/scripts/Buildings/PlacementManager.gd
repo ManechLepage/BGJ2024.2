@@ -14,6 +14,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if current_selected_building:
+		#print(current_selected_building.current_tier)
 		tile_layer_manager.place_preview_at_mouse_position(current_selected_building)
 
 func _on_clicked_open_tile() -> void:

@@ -1,8 +1,11 @@
 class_name ScoreCalculator
 extends Node
 
+@onready var camera_2d: Camera2D = %Camera2D
+
 @onready var tile_layer_manager: TileLayerManager = %TileLayerManager
 @onready var building_effects: BuildingEffects = %BuildingEffects
+@onready var sound_manager: SoundManager = %SoundManager
 
 @export var animation_texture: PackedScene
 @export var coin_texture: Texture2D
@@ -37,6 +40,7 @@ const RANDOM_OFFSET: float = 0.5
 @export var red: Color
 
 func calculate():
+	ANIMATION_SPEED *= 0.95
 	var buildings: Array[Building] = tile_layer_manager.get_all_buildings()
 	#var buildings: Array[Building]
 	#for building in temporary_buildings:
@@ -46,7 +50,6 @@ func calculate():
 		#buildings.append(new_building)
 	
 	for building in buildings:
-		print(building.current_tier)
 		building_effects.activate_building(building, buildings)
 	
 	var turn_revenue: int = 0
@@ -100,25 +103,26 @@ func calculate():
 
 func animate_consumption(building: Building):
 	for i in range(building.electricity):
-		animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target_2.position)
+		animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 		await get_tree().create_timer(TIME_BETWEEN_TWEENS * ANIMATION_SPEED).timeout
 		lightning_count.text = str(int(lightning_count.text) + 1)
 		animate_label(lightning_count)
 	
 	for i in range(building.water):
-		animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target_2.position)
+		animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 		await get_tree().create_timer(TIME_BETWEEN_TWEENS * ANIMATION_SPEED).timeout
 		water_count.text = str(int(water_count.text) + 1)
 		animate_label(water_count)
 
 func animate_revenue(building: Building):
 	for i in range(building.money):
-		animate(coin_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)
+		animate(coin_texture, tile_layer_manager.ground.map_to_local(building.position),  get_animation_position())
 		await get_tree().create_timer(TIME_BETWEEN_TWEENS * ANIMATION_SPEED).timeout
 		revenue_count.text = str(int(revenue_count.text) + 1)
 		animate_label(revenue_count)
 
 func animate(texture: Texture2D, position: Vector2, goal_position: Vector2):
+	sound_manager.play_coin()
 	var sprite: TextureRect = animation_texture.instantiate()
 	sprite.texture = texture
 	position += Vector2(5, 10)
@@ -156,7 +160,7 @@ func _on_start_storm() -> void:
 	lightning_count.text = str(0)
 	water_count.text = str(0)
 	
-	await get_tree().create_timer(1 * ANIMATION_SPEED).timeout
+	await get_tree().create_timer(2).timeout
 	var total: Array = [0, 0]
 	for building in buildings:
 		total = building_effects.activate_building_storm(building, total[0], total[1])
@@ -171,6 +175,8 @@ func _on_start_storm() -> void:
 	tween2.tween_property(rain_particles, "modulate:a", 0, 0.3 * ANIMATION_SPEED)
 	
 	await tween2.finished
+	
+	await get_tree().create_timer(2).timeout
 	
 	consumption_turn_total.visible = false
 	rain_particles.visible = false
@@ -191,7 +197,7 @@ func animate_storm(building: Building):
 			water_count.text = str(int(water_count.text) + 2)
 			animate_label(water_count)
 			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
-			animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)
+			animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 	elif building.name == "Lightning Rod":
 		var value = 25
 		if building.current_tier > 1:
@@ -202,4 +208,7 @@ func animate_storm(building: Building):
 			lightning_count.text = str(int(lightning_count.text) + 2)
 			animate_label(lightning_count)
 			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
-			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), animation_target.position)
+			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
+
+func get_animation_position():
+	return camera_2d.get_screen_center_position() + Vector2(camera_2d.get_viewport_rect().size.x / 7.5, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=57 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -7,13 +7,21 @@
 [ext_resource type="Script" path="res://scripts/CameraManagert.gd" id="3_fqxni"]
 [ext_resource type="Script" path="res://scripts/SoundManager.gd" id="4_4mq0e"]
 [ext_resource type="Resource" uid="uid://84popup0kh14" path="res://ressources/Buildings/Residence.tres" id="4_hulm2"]
+[ext_resource type="AudioStream" uid="uid://ccrheoymlbse5" path="res://sounds/SFX/Coin.wav" id="4_j7aow"]
 [ext_resource type="Script" path="res://scripts/UI/MenuManager.gd" id="5_5m33o"]
+[ext_resource type="AudioStream" uid="uid://buxrqfash5pg6" path="res://sounds/SFX/ButtonClick.ogg" id="5_76gjh"]
 [ext_resource type="Script" path="res://scripts/RentManager.gd" id="5_b874n"]
 [ext_resource type="Script" path="res://scripts/InputManager.gd" id="5_mxmak"]
+[ext_resource type="AudioStream" uid="uid://e7lgaob5odl" path="res://sounds/SFX/Merging.ogg" id="5_nv4n4"]
+[ext_resource type="AudioStream" uid="uid://copnith1dh360" path="res://sounds/SFX/Rain2.wav" id="6_02vvb"]
 [ext_resource type="Script" path="res://scripts/TutorialManager.gd" id="6_j45wb"]
 [ext_resource type="Script" path="res://scripts/ScoreCalculator.gd" id="6_ndn6y"]
+[ext_resource type="AudioStream" uid="uid://dt21euqtt3jw5" path="res://sounds/SFX/ButtonHover.wav" id="6_vtx2y"]
 [ext_resource type="Script" path="res://scripts/Buildings/Buildings.gd" id="7_q8l3x"]
+[ext_resource type="AudioStream" uid="uid://b5sgfruby21pg" path="res://sounds/Music/AvapXia - The Scholar (mp3cut.net).mp3" id="7_rs1ig"]
+[ext_resource type="AudioStream" uid="uid://vr8e5xl4sd6" path="res://sounds/Music/Nine Lives - High Tension.mp3" id="8_wduy0"]
 [ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="8_wheyb"]
+[ext_resource type="AudioStream" uid="uid://cadl8i387mnb1" path="res://sounds/Music/Jon Shuemaker - Streetlight Glow (mp3cut.net).mp3" id="9_4nvwx"]
 [ext_resource type="Resource" uid="uid://q2nv5s8wwo26" path="res://ressources/Buildings/LightningRod.tres" id="9_u2jdv"]
 [ext_resource type="Resource" uid="uid://c20g1bxra4t5o" path="res://ressources/Buildings/Park.tres" id="10_0s171"]
 [ext_resource type="Resource" uid="uid://cudxw0up313qo" path="res://ressources/Buildings/Penthouse.tres" id="11_aaa1n"]
@@ -73,6 +81,58 @@ glow_hdr_threshold = 0.0
 
 [node name="Main" type="Node2D"]
 
+[node name="SoundManager" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_4mq0e")
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("5_76gjh")
+bus = &"SFX"
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("6_vtx2y")
+bus = &"SFX"
+
+[node name="Coin" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("4_j7aow")
+volume_db = -15.0
+bus = &"SFX"
+
+[node name="MergeBuilding" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("5_nv4n4")
+bus = &"SFX"
+
+[node name="Rain" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("6_02vvb")
+volume_db = 5.0
+bus = &"SFX"
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("7_rs1ig")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"
+
+[node name="GameMusic" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("8_wduy0")
+volume_db = -10.0
+pitch_scale = 0.5
+bus = &"Music"
+
+[node name="GameAtmosphere" type="AudioStreamPlayer" parent="SoundManager"]
+stream = ExtResource("9_4nvwx")
+volume_db = -10.0
+pitch_scale = 0.8
+bus = &"Music"
+
+[node name="AnimationTarget" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(109, 0)
+
+[node name="AnimationTarget2" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(98, 4)
+
 [node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
 unique_name_in_owner = true
 texture_filter = 1
@@ -97,28 +157,13 @@ modulate = Color(0.412, 0.541, 1, 0.4)
 y_sort_enabled = true
 tile_set = ExtResource("2_parxg")
 
-[node name="Animations" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="AnimationTarget" type="Node2D" parent="Animations"]
-unique_name_in_owner = true
-position = Vector2(1138, 317)
-
-[node name="AnimationTarget2" type="Node2D" parent="Animations"]
-unique_name_in_owner = true
-position = Vector2(1127, 321)
-
-[node name="AnimationSprites" type="Node2D" parent="Animations"]
+[node name="AnimationSprites" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-zoom = Vector2(5, 5)
+zoom = Vector2(8, 8)
 script = ExtResource("3_fqxni")
-
-[node name="SoundManager" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_4mq0e")
 
 [node name="MenuManager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -256,7 +301,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("24_l2aoc")
 
+[node name="Label" type="Label" parent="CanvasLayer/DifficultyMenu"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -394.0
+offset_top = -104.0
+offset_right = 394.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "Choose difficulty"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="DifficultyButton" type="Button" parent="CanvasLayer/DifficultyMenu"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -264,15 +329,16 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -123.5
-offset_top = -20.0
+offset_top = 34.0
 offset_right = 123.5
-offset_bottom = 48.0
+offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Select"
 
 [node name="DifficultyOptionButton" type="OptionButton" parent="CanvasLayer/DifficultyMenu"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -280,9 +346,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -123.0
-offset_top = 51.0
+offset_top = -20.0
 offset_right = 124.0
-offset_bottom = 101.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("36_xnb2f")
@@ -295,6 +361,20 @@ popup/item_2/text = "Hard"
 popup/item_2/id = 2
 popup/item_3/text = "Impossible"
 popup/item_3/id = 3
+
+[node name="Ground2" type="TileMapLayer" parent="CanvasLayer/DifficultyMenu"]
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wcAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAcAAQAAAAAAAAABAAgAAQAAAAAAAAABAAcAAQAAAAAAAAACAAgAAQAAAAAAAAACAAcAAQAAAAAAAAADAAgAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAgAAQAAAAAAAAADAAkAAQAAAAAAAAACAAkAAQAAAAAAAAABAAkAAQAAAAAAAAABAAoAAQAAAAAAAAAAAAkAAQAAAAAAAAAAAAoAAQAAAAAAAAD//wkAAQAAAAAAAAACAAoAAQAAAAAAAAADAAsAAQAAAAAAAAADAAoAAQAAAAAAAAACAAsAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAgAAQAAAAAAAAAFAAkAAQAAAAAAAAAFAAoAAQAAAAAAAAAFAAsAAQAAAAAAAAAFAAwAAQAAAAAAAAAEAA0AAQAAAAAAAAAEAAwAAQAAAAAAAAAEAAsAAQAAAAAAAAAEAAoAAQAAAAAAAAAEAAkAAQAAAAAAAAAFAAcAAQAAAAAAAAADAA0AAQAAAAAAAAADAAwAAQAAAAAAAAACAA0AAQAAAAAAAAACAAwAAQAAAAAAAAABAA0AAQAAAAAAAAABAAwAAQAAAAAAAAABAAsAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAD//wsAAQAAAAAAAAAAAA0AAQAAAAAAAAD//w0AAQAAAAAAAAAFAA0AAQAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings2" type="TileMapLayer" parent="CanvasLayer/DifficultyMenu"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wUAAgAAAAAAAAAAAAUAAgAAAAEAAAABAAYAAgAAAAIAAAAAAAYAAgACAAIAAAAAAAcAAgAGAAEAAAABAAcAAgABAAEAAAAAAAoAAgABAAAAAAACAAwAAgADAAAAAAAFAAYAAgAEAAAAAAAFAAUAAgAEAAEAAAAFAAcAAgAEAAIAAAAFAAgAAgAFAAEAAAAEAAkAAgAFAAAAAAAEAAcAAgAFAAAAAAAFAAkAAgABAAEAAAAFAAoAAgADAAEAAAAEAAgAAgACAAEAAAADAAcAAgAAAAIAAAADAAkAAgAGAAEAAAADAAgAAgACAAEAAAACAAcAAgAAAAAAAAACAAYAAgABAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+y_sort_origin = 1
 
 [node name="RestartMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -350,7 +430,6 @@ text = "Total Money Gained:"
 
 [node name="SettingsMenu" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -361,7 +440,22 @@ grow_vertical = 2
 theme = ExtResource("24_l2aoc")
 script = ExtResource("36_8p2mo")
 
+[node name="Ground2" type="TileMapLayer" parent="CanvasLayer/SettingsMenu"]
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wcAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAcAAQAAAAAAAAABAAgAAQAAAAAAAAABAAcAAQAAAAAAAAACAAgAAQAAAAAAAAACAAcAAQAAAAAAAAADAAgAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAgAAQAAAAAAAAADAAkAAQAAAAAAAAACAAkAAQAAAAAAAAABAAkAAQAAAAAAAAABAAoAAQAAAAAAAAAAAAkAAQAAAAAAAAAAAAoAAQAAAAAAAAD//wkAAQAAAAAAAAACAAoAAQAAAAAAAAADAAsAAQAAAAAAAAADAAoAAQAAAAAAAAACAAsAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAgAAQAAAAAAAAAFAAkAAQAAAAAAAAAFAAoAAQAAAAAAAAAFAAsAAQAAAAAAAAAFAAwAAQAAAAAAAAAEAA0AAQAAAAAAAAAEAAwAAQAAAAAAAAAEAAsAAQAAAAAAAAAEAAoAAQAAAAAAAAAEAAkAAQAAAAAAAAAFAAcAAQAAAAAAAAADAA0AAQAAAAAAAAADAAwAAQAAAAAAAAACAA0AAQAAAAAAAAACAAwAAQAAAAAAAAABAA0AAQAAAAAAAAABAAwAAQAAAAAAAAABAAsAAQAAAAAAAAAAAAsAAQAAAAAAAAAAAAwAAQAAAAAAAAD//wsAAQAAAAAAAAAAAA0AAQAAAAAAAAD//w0AAQAAAAAAAAAFAA0AAQAAAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+
+[node name="Buildings2" type="TileMapLayer" parent="CanvasLayer/SettingsMenu"]
+z_index = 1
+y_sort_enabled = true
+scale = Vector2(6, 6)
+tile_map_data = PackedByteArray("AAD//wUAAgAAAAAAAAAAAAUAAgAAAAEAAAABAAYAAgAAAAIAAAAAAAYAAgACAAIAAAAAAAcAAgAGAAEAAAABAAcAAgABAAEAAAAAAAoAAgABAAAAAAACAAwAAgADAAAAAAAFAAYAAgAEAAAAAAAFAAUAAgAEAAEAAAAFAAcAAgAEAAIAAAAFAAgAAgAFAAEAAAAEAAkAAgAFAAAAAAAEAAcAAgAFAAAAAAAFAAkAAgABAAEAAAAFAAoAAgADAAEAAAAEAAgAAgACAAEAAAADAAcAAgAAAAIAAAADAAkAAgAGAAEAAAADAAgAAgACAAEAAAACAAcAAgAAAAAAAAACAAYAAgABAAAAAAA=")
+tile_set = ExtResource("2_parxg")
+y_sort_origin = 1
+
 [node name="SettingsBackButton" type="TextureButton" parent="CanvasLayer/SettingsMenu"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -374,6 +468,125 @@ grow_vertical = 0
 scale = Vector2(5, 5)
 texture_normal = ExtResource("35_7yyl4")
 texture_hover = ExtResource("36_8xew2")
+
+[node name="SoundLabel" type="Label" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 30.0
+offset_right = 120.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Sound"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MasterLabel" type="Label" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 71.0
+offset_right = 120.0
+offset_bottom = 143.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Master"
+vertical_alignment = 2
+
+[node name="MasterSlider" type="HSlider" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -173.0
+offset_right = 124.0
+offset_bottom = -157.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -20.0
+max_value = 20.0
+
+[node name="MusicLabel" type="Label" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 150.0
+offset_right = 120.0
+offset_bottom = 222.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Music"
+vertical_alignment = 2
+
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -94.0
+offset_right = 124.0
+offset_bottom = -78.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -20.0
+max_value = 20.0
+
+[node name="SFXLabel" type="Label" parent="CanvasLayer/SettingsMenu"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 228.0
+offset_right = 120.0
+offset_bottom = 300.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Sfx"
+vertical_alignment = 2
+
+[node name="SFXSlider" type="HSlider" parent="CanvasLayer/SettingsMenu"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -16.0
+offset_right = 124.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -20.0
+max_value = 20.0
+
+[node name="AbandonButton" type="Button" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -165.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = 56.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "Abandon run"
 
 [node name="MainUI" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -561,6 +774,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Building1" type="Button" parent="CanvasLayer/MainUI/Choice"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -576,6 +790,7 @@ grow_vertical = 0
 text = "Buy"
 
 [node name="Building2" type="Button" parent="CanvasLayer/MainUI/Choice"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -591,6 +806,7 @@ grow_vertical = 0
 text = "Buy"
 
 [node name="Building3" type="Button" parent="CanvasLayer/MainUI/Choice"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -625,6 +841,37 @@ layout_mode = 2
 
 [node name="BuildingCard3" parent="CanvasLayer/MainUI/Choice/HBoxContainer" instance=ExtResource("25_dqmru")]
 layout_mode = 2
+
+[node name="RerollButton" type="Button" parent="CanvasLayer/MainUI/Choice"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.0
+offset_top = 4.0
+offset_right = 87.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Reroll: 40     "
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MainUI/Choice/RerollButton"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -38.5
+offset_top = 12.0
+offset_right = -6.5
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("28_fdcus")
 
 [node name="ConsumptionTurnTotal" type="Panel" parent="CanvasLayer/MainUI"]
 unique_name_in_owner = true
@@ -835,7 +1082,7 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
-text = "There is three type of building: Residential, Commercial and Industrial"
+text = "There are three type of building: Residential, Commercial and Industrial. They can give you money each turn but they consume energy and water."
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -973,7 +1220,7 @@ offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
-text = "In a world as cold and desperate as this one, not a lot of ressources are available. That is why storms are you're best friend. They give you water and elecricity necessary to live."
+text = "In a world as cold and desperate as this one, not a lot of resources are available. That is why storms are your best friend. They give you water and electricity necessary to live."
 horizontal_alignment = 1
 autowrap_mode = 3
 
@@ -1108,9 +1355,13 @@ texture = ExtResource("37_bsfar")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tegag")
 
+[connection signal="finished" from="SoundManager/MainMenuMusic" to="SoundManager" method="_on_main_menu_music_finished"]
+[connection signal="finished" from="SoundManager/GameMusic" to="SoundManager" method="_on_game_music_finished"]
+[connection signal="finished" from="SoundManager/GameAtmosphere" to="SoundManager" method="_on_game_atmosphere_finished"]
 [connection signal="finished_choice" from="TurnManager" to="TutorialManager" method="_on_turn_manager_finished_choice"]
 [connection signal="clicked_merging_tile" from="InputManager" to="PlacementManager" method="_on_input_manager_clicked_merging_tile"]
 [connection signal="clicked_open_tile" from="InputManager" to="PlacementManager" method="_on_clicked_open_tile"]
+[connection signal="escaped_clicked" from="InputManager" to="MenuManager" method="_on_input_manager_escaped_clicked"]
 [connection signal="finished_turn" from="InputManager" to="ScoreCalculator" method="_on_finished_turn"]
 [connection signal="start_storm" from="InputManager" to="RentManager" method="_on_start_storm"]
 [connection signal="start_storm" from="InputManager" to="ScoreCalculator" method="_on_start_storm"]
@@ -1121,21 +1372,70 @@ environment = SubResource("Environment_tegag")
 [connection signal="finished_calculating" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="TurnManager" method="_on_finished_calculating_storm"]
 [connection signal="finished_calculating_storm" from="ScoreCalculator" to="InputManager" method="_on_score_calculator_finished_calculating_storm"]
+[connection signal="mouse_entered" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/DifficultyMenu/DifficultyButton" to="MenuManager" method="_on_difficulty_button_pressed"]
 [connection signal="item_selected" from="CanvasLayer/DifficultyMenu/DifficultyOptionButton" to="MenuManager" method="_on_difficulty_option_button_item_selected"]
+[connection signal="mouse_entered" from="CanvasLayer/RestartMenu/MainMenuButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/RestartMenu/MainMenuButton" to="MenuManager" method="_on_main_menu_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/SettingsMenu/SettingsBackButton" to="MenuManager" method="_on_settings_back_button_pressed"]
+[connection signal="drag_ended" from="CanvasLayer/SettingsMenu/MasterSlider" to="SoundManager" method="play_click"]
+[connection signal="drag_started" from="CanvasLayer/SettingsMenu/MasterSlider" to="SoundManager" method="play_click"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingsMenu/MasterSlider" to="SoundManager" method="play_hover"]
+[connection signal="value_changed" from="CanvasLayer/SettingsMenu/MasterSlider" to="SoundManager" method="_on_master_slider_value_changed"]
+[connection signal="drag_ended" from="CanvasLayer/SettingsMenu/MusicSlider" to="SoundManager" method="play_click"]
+[connection signal="drag_started" from="CanvasLayer/SettingsMenu/MusicSlider" to="SoundManager" method="play_click"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingsMenu/MusicSlider" to="SoundManager" method="play_hover"]
+[connection signal="value_changed" from="CanvasLayer/SettingsMenu/MusicSlider" to="SoundManager" method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="CanvasLayer/SettingsMenu/SFXSlider" to="SoundManager" method="play_click"]
+[connection signal="drag_started" from="CanvasLayer/SettingsMenu/SFXSlider" to="SoundManager" method="play_click"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingsMenu/SFXSlider" to="SoundManager" method="play_hover"]
+[connection signal="value_changed" from="CanvasLayer/SettingsMenu/SFXSlider" to="SoundManager" method="_on_sfx_slider_value_changed"]
+[connection signal="mouse_entered" from="CanvasLayer/SettingsMenu/AbandonButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/SettingsMenu/AbandonButton" to="SoundManager" method="play_click"]
+[connection signal="pressed" from="CanvasLayer/SettingsMenu/AbandonButton" to="MenuManager" method="_on_main_menu_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/FinishTurnButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/FinishTurnButton" to="SoundManager" method="_on_finish_turn_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainUI/FinishTurnButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/FinishTurnButton" to="InputManager" method="_on_finish_turn_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Choice/Building1" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building1" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building1" to="TurnManager" method="_on_building_1_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Choice/Building2" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building2" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building2" to="TurnManager" method="_on_building_2_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Choice/Building3" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building3" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Choice/Building3" to="TurnManager" method="_on_building_3_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Choice/RerollButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/RerollButton" to="SoundManager" method="play_click"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Choice/RerollButton" to="TurnManager" method="_on_reroll_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/GameSettingsButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/GameSettingsButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/GameSettingsButton" to="MenuManager" method="_on_game_settings_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/SeeBoardButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/SeeBoardButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/SeeBoardButton" to="TurnManager" method="_on_see_board_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Tutorial2/Continue2Button" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial2/Continue2Button" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial2/Continue2Button" to="TutorialManager" method="_on_continue_2_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Tutorial3/Continue3Button" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial3/Continue3Button" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial3/Continue3Button" to="TutorialManager" method="_on_continue_3_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainUI/Tutorial1/ContinueButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainUI/Tutorial1/ContinueButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainUI/Tutorial1/ContinueButton" to="TutorialManager" method="_on_continue_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMenu/PlayButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/PlayButton" to="MenuManager" method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMenu/QuitButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/QuitButton" to="MenuManager" method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MainMenu/SettingsButton" to="SoundManager" method="play_hover"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="SoundManager" method="play_click"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/SettingsButton" to="MenuManager" method="_on_settings_button_pressed"]
 
 [editable path="BuildingInfo"]

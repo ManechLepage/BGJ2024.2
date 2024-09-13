@@ -3,6 +3,8 @@ extends Node
 
 var count: int = 0
 
+@onready var turn_manager: TurnManager = %TurnManager
+
 @onready var tutorial_1: Panel = %Tutorial1
 @onready var description: Label = %Description
 @onready var description_2: Label = %Description2
@@ -56,6 +58,7 @@ func _on_continue_2_button_pressed() -> void:
 		else:
 			count = 0
 			tutorial_2.visible = false
+			turn_manager.enable_buttons()
 
 func _on_continue_3_button_pressed() -> void:
 	if GlobalInfo.has_played_tutorial:

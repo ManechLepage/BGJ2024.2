@@ -18,6 +18,8 @@ signal start_storm
 
 signal show_card
 
+signal escaped_clicked
+
 var finishing_turn: bool = false
 var is_storm: bool = false
 
@@ -40,6 +42,8 @@ func _input(event: InputEvent) -> void:
 		if placement_manager.current_selected_building:
 			if tile_layer_manager.can_merge_at_mouse_position(placement_manager.current_selected_building):
 				clicked_merging_tile.emit()
+	if Input.is_action_just_pressed("Escape"):
+		escaped_clicked.emit()
 
 func _on_finish_turn_pressed() -> void:
 	if finishing_turn:
@@ -71,6 +75,7 @@ func _on_timer_timeout() -> void:
 	if not tile_layer_manager.is_mouse_open_tile():
 		var building: Building = buildings.get_building_from_position(tile_layer_manager.get_building_mouse_position())
 		if building:
+			building.name
 			building_info.load_building(building)
 			building_info.visible = true
 			building_info.position = tile_layer_manager.get_local_mouse_position() + offset
