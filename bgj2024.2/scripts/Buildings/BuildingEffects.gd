@@ -58,3 +58,12 @@ func remove_electricity(building: Building, amount: int):
 
 func remove_water(building: Building, amount: int):
 	building.water = max(0, building.water - amount)
+
+func get_buildings_in_cross(building: Building, buildings: Array[Building]):
+	var target_buildings: Array[Building]
+	
+	for target_building in buildings:
+		if target_building.position.y == building.y or target_building.position.x == building.x:
+			target_buildings.append(target_building)
+	
+	return target_buildings

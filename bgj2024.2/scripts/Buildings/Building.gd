@@ -6,6 +6,7 @@ enum TYPE {RESIDENTIAL, COMERCIAL, INDUSTRIAL}
 @export var name: String
 @export var type: TYPE
 @export var rarity: float # 100 = very common, 10 = very rare
+@export var start_apperance: int = -1
 @export_group("Costs")
 @export var water: int
 @export var electricity: int

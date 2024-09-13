@@ -10,5 +10,6 @@ func activate(building: Building, buildings: Array[Building]):
 		building.money += len(filtered_affected_buildings) * 2
 	
 	if building.current_tier > 1:
-		building.money += 1
-		
+		building.money += 2
+		building.electricity -= 1
+		building.water -= 1

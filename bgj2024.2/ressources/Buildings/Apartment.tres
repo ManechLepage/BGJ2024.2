@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://couvn4qdtevoi"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_8cln3"]
+
+[resource]
+script = ExtResource("1_8cln3")
+name = "Apartment"
+type = 0
+rarity = 60.0
+water = 1
+electricity = 1
+money = 1
+sprite_atlas = Vector2i(0, 0)
+description = "Adds 1 permanent revenue for all apartments every storm"
+water_bonus_2 = 0
+electricity_bonus_2 = 0
+money_bonus_2 = 0
+tier_2_description = "Adds 2 permanent revenue for all apartments every storm"
+water_bonus_3 = 0
+electricity_bonus_3 = 0
+money_bonus_3 = 0
+tier_3_description = "Adds 3 permanent revenue for all apartments every storm"

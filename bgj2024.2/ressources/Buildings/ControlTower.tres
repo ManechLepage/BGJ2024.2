@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://cj1ofnjywtotk"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_cjxpl"]
+
+[resource]
+script = ExtResource("1_cjxpl")
+name = "Control Tower"
+type = 2
+rarity = 10.0
+start_apperance = 20
+water = 0
+electricity = 0
+money = 0
+sprite_atlas = Vector2i(0, 0)
+description = "Gain electricity and water equal to half the number of building you own every storm"
+water_bonus_2 = 0
+electricity_bonus_2 = 0
+money_bonus_2 = 0
+tier_2_description = "Gain electricity and water equa to the number of building you own every storm"
+water_bonus_3 = 0
+electricity_bonus_3 = 0
+money_bonus_3 = 0
+tier_3_description = "Gain electricity and water equal to twice the number of building you own every storm"

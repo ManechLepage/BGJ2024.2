@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://bw5jer45et13n"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_yqg2g"]
+
+[resource]
+script = ExtResource("1_yqg2g")
+name = "Supermarket"
+type = 1
+rarity = 20.0
+start_apperance = 10
+water = 3
+electricity = 1
+money = 0
+sprite_atlas = Vector2i(0, 0)
+description = "Gives +10 revenue if next to another commercial, residential and industrial building"
+water_bonus_2 = -1
+electricity_bonus_2 = 0
+money_bonus_2 = 0
+tier_2_description = "Gives +20 revenue if next to another commercial, residential and industrial building"
+water_bonus_3 = -1
+electricity_bonus_3 = 0
+money_bonus_3 = 0
+tier_3_description = "Gives +30 revenue if next to another commercial, residential and industrial building"

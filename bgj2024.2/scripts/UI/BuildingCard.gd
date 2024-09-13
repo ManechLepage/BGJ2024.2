@@ -37,7 +37,7 @@ func load_building(_building: Building):
 		type.text = "Residential"
 	elif building.type == Building.TYPE.COMERCIAL:
 		type.add_theme_color_override("font_color", comercial_color)
-		type.text = "Comercial"
+		type.text = "Commercial"
 	elif building.type == Building.TYPE.INDUSTRIAL:
 		type.add_theme_color_override("font_color", industrial_color)
 		type.text = "Industrial"
