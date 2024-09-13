@@ -139,8 +139,8 @@ bus = &"Music"
 
 [node name="GameAtmosphere" type="AudioStreamPlayer" parent="SoundManager"]
 stream = ExtResource("9_4nvwx")
-volume_db = -10.0
-pitch_scale = 0.8
+volume_db = -12.0
+pitch_scale = 0.5
 bus = &"Music"
 
 [node name="AnimationTarget" type="Node2D" parent="."]
