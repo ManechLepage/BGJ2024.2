@@ -36,6 +36,7 @@ func get_random_building():
 				building.current_tier = 1
 			return building
 		random_weight -= building.rarity
+	return null
 
 func filtered_buildings():
 	var filtered: Array[Building]

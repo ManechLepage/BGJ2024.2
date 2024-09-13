@@ -7,6 +7,7 @@ script = ExtResource("1_lcl4u")
 name = "Residence"
 type = 0
 rarity = 100.0
+start_apperance = -1
 water = 1
 electricity = 1
 money = 1

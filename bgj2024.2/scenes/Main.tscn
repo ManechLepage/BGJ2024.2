@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=65 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -43,14 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://cro8tj1livpt2" path="res://graphics/UI/Icons/coin.png" id="28_fdcus"]
 [ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="31_bowib"]
 [ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="32_ex7d4"]
-[ext_resource type="Resource" uid="uid://couvn4qdtevoi" path="res://ressources/Buildings/Apartment.tres" id="33_4ern3"]
 [ext_resource type="Texture2D" uid="uid://sad6eqm24lco" path="res://graphics/UI/Icons/settings.aseprite" id="33_pw015"]
 [ext_resource type="Texture2D" uid="uid://bxnlcj74wo5rq" path="res://graphics/UI/Icons/settings_hover.aseprite" id="34_g0yxk"]
-[ext_resource type="Resource" uid="uid://cj1ofnjywtotk" path="res://ressources/Buildings/ControlTower.tres" id="34_kx7tg"]
 [ext_resource type="Texture2D" uid="uid://e6wipaqwknma" path="res://graphics/UI/Icons/back.aseprite" id="35_7yyl4"]
-[ext_resource type="Resource" uid="uid://byq4yawebhpvk" path="res://ressources/Buildings/IndustrialHub.tres" id="35_75b2v"]
 [ext_resource type="Script" path="res://scripts/UI/SettingsMenu.gd" id="36_8p2mo"]
-[ext_resource type="Resource" uid="uid://brdxwxyoo0k4o" path="res://ressources/Buildings/PaperTower.tres" id="36_8ts86"]
 [ext_resource type="Texture2D" uid="uid://u5j18t8eyxvd" path="res://graphics/UI/Icons/back_hover.aseprite" id="36_8xew2"]
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="36_xnb2f"]
 [ext_resource type="Texture2D" uid="uid://0hk4um4s37c7" path="res://graphics/UI/Title.aseprite" id="37_bsfar"]
@@ -168,6 +164,7 @@ tile_set = ExtResource("2_parxg")
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD/////AgAIAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
@@ -225,7 +222,7 @@ red = Color(0.905882, 0.172549, 0, 1)
 [node name="Buildings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_q8l3x")
-buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx"), ExtResource("33_4ern3"), ExtResource("34_kx7tg"), ExtResource("35_75b2v"), ExtResource("36_8ts86"), ExtResource("37_ji4g4")])
+buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx"), ExtResource("37_ji4g4")])
 
 [node name="BuildingEffects" type="Node" parent="."]
 unique_name_in_owner = true

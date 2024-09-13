@@ -7,6 +7,7 @@ script = ExtResource("1_3x5bu")
 name = "Lightning Rod"
 type = 2
 rarity = 80.0
+start_apperance = -1
 water = 0
 electricity = 0
 money = 0

@@ -29,8 +29,16 @@ func load_building(_building: Building):
 	
 	var total = get_consumption_values(building)
 	revenue.text = ": " + str(total[0])
-	electricity.text = ": -" + str(total[1])
-	water.text = ": -" + str(total[2])
+	
+	if total[1] > 0:
+		electricity.text = ": -" + str(total[1])
+	else:
+		electricity.text = ": "
+	
+	if total[2] > 0:
+		water.text = ": -" + str(total[2])
+	else:
+		electricity.text = ": "
 	
 	if building.type == Building.TYPE.RESIDENTIAL:
 		type.add_theme_color_override("font_color", residential_color)
@@ -57,7 +65,7 @@ func get_description(building: Building):
 
 func enrich(text: String):
 	for keyword in keywords.keys():
-		text = text.replacen(keyword, keywords[keyword])
+		text = text.replace(keyword, keywords[keyword])
 	return text
 
 func get_consumption_values(building: Building):
