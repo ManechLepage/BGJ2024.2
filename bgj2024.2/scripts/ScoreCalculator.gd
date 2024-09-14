@@ -39,6 +39,9 @@ const RANDOM_OFFSET: float = 0.5
 @export var green: Color
 @export var red: Color
 
+func target_sort(target_a, target_b):
+	return target_a.money <= target_b.money
+
 func calculate():
 	ANIMATION_SPEED *= 0.95
 	var buildings: Array[Building] = tile_layer_manager.get_all_buildings()
@@ -70,7 +73,9 @@ func calculate():
 	var current_total :Array = [turn_revenue, turn_electricity, turn_water]
 	
 	for building in buildings:
-		current_total = building_effects.activate_building_total_buff(building, current_total[0], current_total[1], current_total[2])
+		current_total = building_effects.activate_building_total_buff(building, buildings, current_total[0], current_total[1], current_total[2])
+	
+	buildings.sort_custom(target_sort)
 	
 	consumption_turn_total.modulate.a = 1
 	consumption_turn_total.visible = true
@@ -86,7 +91,7 @@ func calculate():
 		await animate_revenue(building)
 		await get_tree().create_timer(TIME_BETWEEN_BUILDINGS * ANIMATION_SPEED).timeout
 	
-	await get_tree().create_timer(TIME_AFTER_REVENUE * ANIMATION_SPEED).timeout
+	await get_tree().create_timer(TIME_AFTER_REVENUE).timeout
 	revenue_count.text = str(current_total[0])
 	lightning_count.text = str(current_total[1])
 	water_count.text = str(current_total[2])
@@ -102,16 +107,20 @@ func calculate():
 	finished_calculating.emit(current_total)
 
 func animate_consumption(building: Building):
-	for i in range(building.electricity):
+	for i in range(abs(building.electricity)):
 		animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 		await get_tree().create_timer(TIME_BETWEEN_TWEENS * ANIMATION_SPEED).timeout
 		lightning_count.text = str(int(lightning_count.text) + 1)
+		if building.name == "Paper Tower":
+			lightning_count.text = str(int(lightning_count.text) - 2)
 		animate_label(lightning_count)
 	
-	for i in range(building.water):
+	for i in range(abs(building.water)):
 		animate(water_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 		await get_tree().create_timer(TIME_BETWEEN_TWEENS * ANIMATION_SPEED).timeout
 		water_count.text = str(int(water_count.text) + 1)
+		if building.name == "Paper Tower":
+			water_count.text = str(int(water_count.text) - 2)
 		animate_label(water_count)
 
 func animate_revenue(building: Building):
@@ -132,7 +141,7 @@ func animate(texture: Texture2D, position: Vector2, goal_position: Vector2):
 	%AnimationSprites.add_child(sprite)
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(sprite, "position", goal_position, TWEEN_TIME * ANIMATION_SPEED).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(sprite, "position", goal_position, TWEEN_TIME).set_trans(Tween.TRANS_CUBIC)
 	
 	await tween.finished
 	sprite.queue_free()
@@ -163,7 +172,9 @@ func _on_start_storm() -> void:
 	await get_tree().create_timer(2).timeout
 	var total: Array = [0, 0]
 	for building in buildings:
-		total = building_effects.activate_building_storm(building, total[0], total[1])
+		if building.name == "Paper Tower":
+			tile_layer_manager.destroy_building(building)
+		total = building_effects.activate_building_storm(building, buildings, total[0], total[1])
 		animate_storm(building)
 		await get_tree().create_timer(0.1 * ANIMATION_SPEED).timeout
 	
@@ -193,7 +204,7 @@ func animate_storm(building: Building):
 			value += 25
 		if building.current_tier > 2:
 			value += 50
-		for i in range(int(value / 2)):
+		for i in range(int(value / 2) + 1):
 			water_count.text = str(int(water_count.text) + 2)
 			animate_label(water_count)
 			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
@@ -204,9 +215,22 @@ func animate_storm(building: Building):
 			value += 25
 		if building.current_tier > 2:
 			value += 50
-		for i in range(int(value / 2)):
+		for i in range(int(value / 2) + 1):
 			lightning_count.text = str(int(lightning_count.text) + 2)
 			animate_label(lightning_count)
+			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
+			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
+	elif building.name == "Industrial Hub" or building.name == "Control Tower":
+		var electricity = building.data1
+		var water = building.data2
+		for i in range(int(electricity / 2) + 1):
+			lightning_count.text = str(int(lightning_count.text) + 2)
+			animate_label(lightning_count)
+			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
+			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
+		for i in range(int(water / 2) + 1):
+			water_count.text = str(int(water_count.text) + 2)
+			animate_label(water_count)
 			await get_tree().create_timer(0.01 * ANIMATION_SPEED).timeout
 			animate(electricity_texture, tile_layer_manager.ground.map_to_local(building.position), get_animation_position())
 

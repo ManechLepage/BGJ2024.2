@@ -112,6 +112,8 @@ func place_preview(building: Building, position: Vector2i):
 func place_ground_tile(position: Vector2i):
 	ground.set_cell(position, 1, Vector2i(0, 0))
 
+func destroy_building(building: Building):
+	buildings.erase_cell(building.position)
 
 func is_mouse_open_tile():
 	return is_open_tile(get_building_mouse_position()) and has_ground(get_ground_mouse_position())

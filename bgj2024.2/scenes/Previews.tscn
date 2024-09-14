@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=4 uid="uid://cwsn04y6c5t3a"]
+
+[ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_4dtg1"]
+[ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_1u3xp"]
+[ext_resource type="Texture2D" uid="uid://bts3i2h2mvuhv" path="res://graphics/UI/Banner.aseprite" id="3_m0kty"]
+
+[sub_resource type="Environment" id="Environment_7fpp1"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 2.08
+glow_blend_mode = 1
+glow_hdr_threshold = 0.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileLayerManager" type="Node2D" parent="." groups=["TileMap"]]
+unique_name_in_owner = true
+texture_filter = 1
+script = ExtResource("1_4dtg1")
+open_preview_color = Color(0.355, 0.445, 0.899, 0.4)
+denied_preview_color = Color(0.879, 0, 0.344, 0.405)
+merging_preview_color = Color(0.228, 0.572, 0, 0.4)
+
+[node name="Ground" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD//wMAAQAAAAAAAAAAAAIAAQAAAAAAAAD//wEAAQAAAAAAAAD//wIAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAQAAAAAAAAD//wAAAQAAAAAAAAD+/wEAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAADAAIAAQAAAAAAAAACAAMAAQAAAAAAAAADAAQAAQAAAAAAAAACAAUAAQAAAAAAAAADAAYAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAABAAMAAQAAAAAAAAACAAQAAQAAAAAAAAABAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAQAAQAAAAAAAAABAAUAAQAAAAAAAAABAAYAAQAAAAAAAAABAAcAAQAAAAAAAAACAAYAAQAAAAAAAAACAAcAAQAAAAAAAAAAAAcAAQAAAAAAAAAAAAYAAQAAAAAAAAD//wcAAQAAAAAAAAD//wYAAQAAAAAAAAD+/wcAAQAAAAAAAAD+/wYAAQAAAAAAAAD9/wcAAQAAAAAAAAD9/wYAAQAAAAAAAAD8/wcAAQAAAAAAAAD8/wYAAQAAAAAAAAD8/wUAAQAAAAAAAAD8/wQAAQAAAAAAAAD8/wMAAQAAAAAAAAD8/wIAAQAAAAAAAAD8/wEAAQAAAAAAAAD8/wAAAQAAAAAAAAD7/wEAAQAAAAAAAAD7/wMAAQAAAAAAAAD7/wcAAQAAAAAAAAD7/wUAAQAAAAAAAAD+/wAAAQAAAAAAAAD9/wAAAQAAAAAAAAD9/wIAAQAAAAAAAAD9/wMAAQAAAAAAAAD+/wIAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wQAAQAAAAAAAAD9/wQAAQAAAAAAAAD9/wEAAQAAAAAAAAD9/wUAAQAAAAAAAAD+/wUAAQAAAAAAAAD//wQAAQAAAAAAAAD//wUAAQAAAAAAAAAAAAQAAQAAAAAAAAAAAAUAAQAAAAAAAAABAAEAAQAAAAAAAAADAAgAAQAAAAAAAAACAAgAAQAAAAAAAAABAAkAAQAAAAAAAAABAAgAAQAAAAAAAAAAAAkAAQAAAAAAAAAAAAgAAQAAAAAAAAD//wkAAQAAAAAAAAD+/wkAAQAAAAAAAAD9/wkAAQAAAAAAAAD9/wgAAQAAAAAAAAD8/wkAAQAAAAAAAAD8/wgAAQAAAAAAAAD//wgAAQAAAAAAAAD+/wgAAQAAAAAAAAA=")
+tile_set = ExtResource("2_1u3xp")
+
+[node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.8, 0.8, 0.8, 1)
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD8/wAAAgAFAAAAAAD8//7/AgAFAAIAAAD9//7/AgAFAAEAAAD8////AgAHAAIAAAD9/wAAAgAGAAEAAAD9/wEAAgAIAAEAAAD+/wIAAgANAAIAAAD+/wAAAgAJAAAAAAD+/wEAAgAJAAAAAAD//wIAAgAJAAAAAAD+/wMAAgAAAAEAAAD9/wMAAgAAAAEAAAD+/wQAAgABAAAAAAD9/wIAAgABAAAAAAD+/wUAAgAAAAEAAAD9/wUAAgAAAAAAAAD//wAAAgADAAEAAAD+////AgABAAEAAAD+//7/AgABAAAAAAD//wEAAgAJAAAAAAAAAAEAAgAJAAAAAAACAP//AgAEAAEAAAABAP//AgAEAAAAAAADAAIAAgAEAAAAAAD8/wYAAgAEAAAAAAD8/wQAAgAEAAAAAAADAAAAAgAFAAEAAAACAAAAAgALAAEAAAAAAAQAAgALAAIAAAACAAEAAgAIAAAAAAACAAMAAgABAAAAAAAAAAIAAgACAAAAAAACAAIAAgACAAEAAAD8/wEAAgACAAEAAAD//wQAAgACAAAAAAABAAMAAgAMAAAAAAABAAIAAgAHAAEAAAAAAP7/AgAFAAEAAAA=")
+tile_set = ExtResource("2_1u3xp")
+
+[node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
+modulate = Color(0.412, 0.541, 1, 0.4)
+y_sort_enabled = true
+tile_set = ExtResource("2_1u3xp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7fpp1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = -154.0
+offset_top = 10.0
+offset_right = 173.0
+offset_bottom = 60.0
+texture = ExtResource("3_m0kty")

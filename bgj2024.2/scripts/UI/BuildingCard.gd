@@ -16,7 +16,7 @@ var building: Building
 var main = load("res://ressources/TileSets/main.tres")
 
 var keywords = {
-	"elecrtricity" : "[img]res://graphics/UI/Icons/Elecricity.png[/img]",
+	"electricity" : "[img]res://graphics/UI/Icons/Electricity.png[/img]",
 	"water" : "[img]res://graphics/UI/Icons/Water.png[/img]",
 	"revenue" : "[img]res://graphics/UI/Icons/Coin.png[/img]",
 }
@@ -38,7 +38,7 @@ func load_building(_building: Building):
 	if total[2] > 0:
 		water.text = ": -" + str(total[2])
 	else:
-		electricity.text = ": "
+		water.text = ": "
 	
 	if building.type == Building.TYPE.RESIDENTIAL:
 		type.add_theme_color_override("font_color", residential_color)

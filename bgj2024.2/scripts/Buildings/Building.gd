@@ -29,3 +29,6 @@ enum TYPE {RESIDENTIAL, COMERCIAL, INDUSTRIAL}
 
 var position: Vector2i
 var current_tier: int = 1
+
+var data1: int
+var data2: int

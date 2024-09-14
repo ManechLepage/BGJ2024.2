@@ -1,6 +1,6 @@
 extends BuildingEffect
 
-func activate_storm(building: Building, electricity: int, water: int):
+func activate_storm(building: Building, buildings: Array[Building], electricity: int, water: int):
 	var new_water = water
 	if building.current_tier == 1:
 		new_water += 25

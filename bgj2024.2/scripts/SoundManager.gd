@@ -53,6 +53,5 @@ func _on_music_slider_value_changed(value: float) -> void:
 func _on_sfx_slider_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(1, value)
 
-
 func _on_main_menu_button_pressed() -> void:
 	pass # Replace with function body.

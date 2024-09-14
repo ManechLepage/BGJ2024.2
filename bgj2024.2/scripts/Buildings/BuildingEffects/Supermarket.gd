@@ -12,11 +12,11 @@ func activate(building: Building, buildings: Array[Building]):
 	
 	if satisfy_needs:
 		if building.current_tier == 1:
-			building.money += 10
+			building.money += 5
 		elif building.current_tier == 2:
-			building.money += 20
+			building.money += 10
 		else:
-			building.money += 30
+			building.money += 20
 	
 	if building.current_tier > 1:
 		building.water -= 1

@@ -2,14 +2,10 @@ class_name Buildings
 extends Node
 
 @onready var turn_manager: TurnManager = %TurnManager
+@onready var tile_layer_manager: TileLayerManager = %TileLayerManager
 
 @export var buildings: Array[Building]
 var total_weight: int
-
-
-func _ready() -> void:
-	for building in buildings:
-		total_weight += building.rarity
 
 func get_building_from_atlas(atlas: Vector2i):
 	for building in buildings:
@@ -20,12 +16,16 @@ func get_building_from_atlas(atlas: Vector2i):
 	return [null, null]
 
 func get_building_from_position(position: Vector2i):
-	for building in buildings:
+	for building in tile_layer_manager.get_all_buildings():
 		if building.position == position:
 			return building
 	return null
 
 func get_random_building():
+	total_weight = 0
+	for building in filtered_buildings():
+		total_weight += building.rarity
+	
 	var random_weight: int = randi_range(0, total_weight)
 	for building in filtered_buildings():
 		if random_weight < building.rarity:

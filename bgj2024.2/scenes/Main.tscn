@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://6e0uxxp00mon"]
+[gd_scene load_steps=73 format=4 uid="uid://6e0uxxp00mon"]
 
 [ext_resource type="Script" path="res://scripts/Tilemap/TileLayerManager.gd" id="1_3o0sb"]
 [ext_resource type="TileSet" uid="uid://jjx6il2syft5" path="res://ressources/TileSets/main.tres" id="2_parxg"]
@@ -44,18 +44,26 @@
 [ext_resource type="Texture2D" uid="uid://2qiem87rbbk8" path="res://graphics/UI/Icons/Electricity.png" id="31_bowib"]
 [ext_resource type="Texture2D" uid="uid://b1yct72gdxtf1" path="res://graphics/UI/Icons/Water.png" id="32_ex7d4"]
 [ext_resource type="Texture2D" uid="uid://sad6eqm24lco" path="res://graphics/UI/Icons/settings.aseprite" id="33_pw015"]
+[ext_resource type="Resource" uid="uid://byq4yawebhpvk" path="res://ressources/Buildings/IndustrialHub.tres" id="34_d2jg6"]
 [ext_resource type="Texture2D" uid="uid://bxnlcj74wo5rq" path="res://graphics/UI/Icons/settings_hover.aseprite" id="34_g0yxk"]
+[ext_resource type="Resource" uid="uid://couvn4qdtevoi" path="res://ressources/Buildings/Apartment.tres" id="35_1bxoh"]
 [ext_resource type="Texture2D" uid="uid://e6wipaqwknma" path="res://graphics/UI/Icons/back.aseprite" id="35_7yyl4"]
 [ext_resource type="Script" path="res://scripts/UI/SettingsMenu.gd" id="36_8p2mo"]
 [ext_resource type="Texture2D" uid="uid://u5j18t8eyxvd" path="res://graphics/UI/Icons/back_hover.aseprite" id="36_8xew2"]
+[ext_resource type="Resource" uid="uid://brdxwxyoo0k4o" path="res://ressources/Buildings/PaperTower.tres" id="36_tmiox"]
 [ext_resource type="FontFile" uid="uid://bhp5f4318nagl" path="res://graphics/UI/upheavtt.ttf" id="36_xnb2f"]
 [ext_resource type="Texture2D" uid="uid://0hk4um4s37c7" path="res://graphics/UI/Title.aseprite" id="37_bsfar"]
+[ext_resource type="Resource" uid="uid://cj1ofnjywtotk" path="res://ressources/Buildings/ControlTower.tres" id="37_cme1m"]
 [ext_resource type="Resource" uid="uid://bw5jer45et13n" path="res://ressources/Buildings/Supermarket.tres" id="37_ji4g4"]
+[ext_resource type="Resource" uid="uid://cxo7oes4sfydl" path="res://ressources/Buildings/Mall.tres" id="38_nost2"]
+[ext_resource type="Resource" uid="uid://d1g3q0jlidfti" path="res://ressources/Buildings/Warehouse.tres" id="39_3bw23"]
 [ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/IndustrialHub.gd" id="46_db8pp"]
 [ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Supermarket.gd" id="47_5c68x"]
 [ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Apartment.gd" id="48_8vhyo"]
 [ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/PaperTower.gd" id="49_s6q32"]
 [ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/ControlTower.gd" id="50_uhbrx"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Warehouse.gd" id="53_q6vr5"]
+[ext_resource type="Script" path="res://scripts/Buildings/BuildingEffects/Mall.gd" id="54_qcmco"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xn282"]
 
@@ -164,7 +172,6 @@ tile_set = ExtResource("2_parxg")
 [node name="Buildings" type="TileMapLayer" parent="TileLayerManager"]
 modulate = Color(0.8, 0.8, 0.8, 1)
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD/////AgAIAAAAAAA=")
 tile_set = ExtResource("2_parxg")
 
 [node name="Preview" type="TileMapLayer" parent="TileLayerManager"]
@@ -222,7 +229,7 @@ red = Color(0.905882, 0.172549, 0, 1)
 [node name="Buildings" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("7_q8l3x")
-buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx"), ExtResource("37_ji4g4")])
+buildings = Array[ExtResource("8_wheyb")]([ExtResource("9_u2jdv"), ExtResource("10_0s171"), ExtResource("11_aaa1n"), ExtResource("12_v7krl"), ExtResource("4_hulm2"), ExtResource("13_hhtr8"), ExtResource("14_phigx"), ExtResource("37_ji4g4"), ExtResource("34_d2jg6"), ExtResource("35_1bxoh"), ExtResource("36_tmiox"), ExtResource("37_cme1m"), ExtResource("38_nost2"), ExtResource("39_3bw23")])
 
 [node name="BuildingEffects" type="Node" parent="."]
 unique_name_in_owner = true
@@ -275,6 +282,14 @@ building_name = "Paper Tower"
 [node name="ControlTower" type="Node" parent="BuildingEffects"]
 script = ExtResource("50_uhbrx")
 building_name = "Control Tower"
+
+[node name="Warehouse" type="Node" parent="BuildingEffects"]
+script = ExtResource("53_q6vr5")
+building_name = "Warehouse"
+
+[node name="Mall" type="Node" parent="BuildingEffects"]
+script = ExtResource("54_qcmco")
+building_name = "Mall"
 
 [node name="BuildingInfo" parent="." instance=ExtResource("25_dqmru")]
 unique_name_in_owner = true
@@ -651,6 +666,22 @@ theme_override_font_sizes/font_size = 25
 shortcut = SubResource("Shortcut_hdo4p")
 text = "Start Turn"
 
+[node name="Label" type="Label" parent="CanvasLayer/MainUI/FinishTurnButton"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -38.0
+offset_top = -12.0
+offset_right = 38.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "[Space]"
+
 [node name="InfoLabel" type="Panel" parent="CanvasLayer/MainUI"]
 texture_filter = 1
 layout_mode = 1
@@ -753,31 +784,39 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -106.0
-offset_right = 140.0
+offset_right = 172.0
 offset_bottom = -53.0
 grow_vertical = 0
 theme = ExtResource("24_l2aoc")
 
 [node name="Label" type="Label" parent="CanvasLayer/MainUI/Rent"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 50)
 layout_mode = 1
-anchors_preset = 9
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 7.0
-offset_right = 82.0
-offset_bottom = -7.0
+offset_left = 9.0
+offset_bottom = -3.0
+grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 20
-text = "Rent: "
+text = "Rent: 31"
 vertical_alignment = 1
 
 [node name="CoinIcon" type="TextureRect" parent="CanvasLayer/MainUI/Rent"]
-layout_mode = 0
-offset_left = 95.0
-offset_top = 7.0
-offset_right = 135.0
-offset_bottom = 47.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -20.0
+offset_right = -4.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
 texture = ExtResource("28_fdcus")
 
 [node name="Choice" type="Panel" parent="CanvasLayer/MainUI"]
@@ -1363,10 +1402,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 497.0
-offset_top = -324.0
-offset_right = 513.0
-offset_bottom = -308.0
+offset_left = 0.00012207
+offset_top = -3.05176e-05
+offset_right = 16.0001
+offset_bottom = 16.0
 grow_horizontal = 0
 scale = Vector2(5, 5)
 texture_normal = ExtResource("33_pw015")

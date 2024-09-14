@@ -35,6 +35,7 @@ func on_death():
 	tile_layer_manager.visible = true
 
 func _on_main_menu_button_pressed() -> void:
+	GlobalInfo.apartment_value = 0
 	get_tree().reload_current_scene()
 
 func _ready() -> void:

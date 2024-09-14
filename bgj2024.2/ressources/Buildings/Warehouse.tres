@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Building" load_steps=2 format=3 uid="uid://d1g3q0jlidfti"]
+
+[ext_resource type="Script" path="res://scripts/Buildings/Building.gd" id="1_1woal"]
+
+[resource]
+script = ExtResource("1_1woal")
+name = "Warehouse"
+type = 1
+rarity = 20.0
+start_apperance = 10
+water = 2
+electricity = 2
+money = 0
+sprite_atlas = Vector2i(12, 0)
+description = "Reduces total electricity consumption by a percentage equal to the number of commercial buildings you control"
+water_bonus_2 = 0
+electricity_bonus_2 = 0
+money_bonus_2 = 0
+tier_2_description = "Reduces total electricity consumption by a percentage equal to twice the number of commercial buildings you control"
+water_bonus_3 = 0
+electricity_bonus_3 = 0
+money_bonus_3 = 0
+tier_3_description = "Reduces total electricity consumption by a percentage equal to three times the number of commercial buildings you control"

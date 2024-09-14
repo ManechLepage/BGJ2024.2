@@ -81,7 +81,8 @@ func _on_start_turn() -> void:
 	
 	for i in range(3):
 		choices.append(get_random_building())
-		choice.get_child(4).get_child(i).load_building(choices[i])
+		if choices[i]:
+			choice.get_child(4).get_child(i).load_building(choices[i])
 
 func get_random_building():
 	return buildings.get_random_building()
@@ -118,5 +119,5 @@ func _on_reroll_button_pressed() -> void:
 		money -= reroll_cost
 		update_turn()
 		reroll_index += 1
-		reroll_cost = reroll_cost_rule * (reroll_index ** 1.5) + 5
+		reroll_cost = reroll_cost_rule * (reroll_index ** 1.02) + 5
 		_on_start_turn()

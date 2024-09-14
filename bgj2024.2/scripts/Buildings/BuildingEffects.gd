@@ -9,18 +9,18 @@ func activate_building(building: Building, buildings: Array[Building]):
 		if child.building_name == building.name:
 			child.activate(building, buildings)
 
-func activate_building_total_buff(building: Building, revenue: int, electricity: int, water: int):
+func activate_building_total_buff(building: Building, buildings: Array[Building], revenue: int, electricity: int, water: int):
 	var current_total: Array = [revenue, electricity, water]
 	for child in get_children():
 		if child.building_name == building.name:
-			current_total = child.activate_total_buff(building, revenue, electricity, water)
+			current_total = child.activate_total_buff(building, buildings, revenue, electricity, water)
 	return current_total
 
-func activate_building_storm(building: Building, electricity: int, water: int):
+func activate_building_storm(building: Building, buildings: Array[Building], electricity: int, water: int):
 	var current_total: Array = [electricity, water]
 	for child in get_children():
 		if child.building_name == building.name:
-			current_total = child.activate_storm(building, current_total[0], current_total[1])
+			current_total = child.activate_storm(building, buildings, current_total[0], current_total[1])
 	return current_total
 
 func get_surrounding_buildings(building: Building, buildings: Array[Building]):
@@ -63,7 +63,7 @@ func get_buildings_in_cross(building: Building, buildings: Array[Building]):
 	var target_buildings: Array[Building]
 	
 	for target_building in buildings:
-		if target_building.position.y == building.y or target_building.position.x == building.x:
+		if target_building.position.y == building.position.y or target_building.position.x == building.position.x:
 			target_buildings.append(target_building)
 	
 	return target_buildings
